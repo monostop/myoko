@@ -105,13 +105,13 @@ export function ResortTable({
                   {resort.config.trailMapImage ? (
                     <button
                       onClick={() => setLightboxImage({
-                        src: `/maps/${resort.config.trailMapImage}`,
+                        src: `${import.meta.env.BASE_URL}maps/${resort.config.trailMapImage}`,
                         title: resort.config.name
                       })}
                       className="block w-12 h-12 rounded-md overflow-hidden border border-border/50 hover:border-primary/50 transition-colors cursor-pointer"
                     >
                       <img
-                        src={`/maps/${resort.config.trailMapImage}`}
+                        src={`${import.meta.env.BASE_URL}maps/${resort.config.trailMapImage}`}
                         alt={`${resort.config.name} trail map`}
                         className="w-full h-full object-cover"
                       />
