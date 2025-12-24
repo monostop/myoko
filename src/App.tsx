@@ -67,6 +67,14 @@ export default function App() {
         <footer className="mt-16 pt-8 border-t border-border/30">
           <div className="flex items-center justify-between text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em]">
             <span>Base: Akakura Kanko</span>
+            <a
+              href="https://www.snow-forecast.com/resorts/Akakura-Shin-Akakura/6day/mid"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-muted-foreground transition-colors"
+            >
+              Weather Report →
+            </a>
             <span>Season 2024–25</span>
           </div>
         </footer>
