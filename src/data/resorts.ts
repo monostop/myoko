@@ -100,6 +100,6 @@ export const RESORTS: ResortConfig[] = [
     notes: '21 interconnected resorts',
     websiteUrl: 'https://shigakogen-ski.or.jp/english/',
     liftStatusUrl: 'https://shigakogen-ski.or.jp/lift/',
-    trailMapImage: null,
+    trailMapImage: 'Shiga-Kogen-Trail-Map.pdf',
   },
 ]
