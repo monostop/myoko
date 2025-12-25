@@ -26,9 +26,12 @@ async function scrapeMadarao(page: Page): Promise<ScrapedResortData> {
 
   try {
     await page.goto("https://www.madarao.jp/ski", {
-      waitUntil: "networkidle",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
     });
+
+    // Wait for content to load
+    await page.waitForTimeout(5000);
 
     const data = await page.evaluate(() => {
       const t = document.body.innerText;
@@ -172,13 +175,21 @@ async function scrapeLotteArai(page: Page): Promise<ScrapedResortData> {
     // Wait for content to load
     await page.waitForTimeout(5000);
 
-    // Extract lift/course data using aria-label attributes
-    // aria-label="Open" = running, aria-label="Close" = suspended
-    const slopeData = await page.evaluate(() => {
+    // Dismiss cookie banner if present
+    try {
+      const cookieBtn = page.locator('button:has-text("Full agreement")');
+      if (await cookieBtn.isVisible({ timeout: 3000 })) {
+        await cookieBtn.click();
+        await page.waitForTimeout(500);
+      }
+    } catch {
+      // Cookie banner might not be present
+    }
+
+    // Extract lift data using aria-label="Open"/"Close"
+    const liftData = await page.evaluate(() => {
       let liftsOpen = 0;
       let liftsClosed = 0;
-      let coursesOpen = 0;
-      let coursesClosed = 0;
 
       document
         .querySelectorAll('[aria-label="Open"], [aria-label="Close"]')
@@ -187,24 +198,53 @@ async function scrapeLotteArai(page: Page): Promise<ScrapedResortData> {
           const text = row?.textContent || "";
           const isOpen = el.getAttribute("aria-label") === "Open";
 
-          // Lifts have "Lift" or "Gondola" in the text
-          if (text.includes("Lift") || text.includes("Gondola")) {
+          // Lifts have "Lift" or "Gondola" in the text (case insensitive)
+          if (/lift|gondola/i.test(text)) {
             if (isOpen) liftsOpen++;
             else liftsClosed++;
           }
-          // Courses have course names but no "Lift"/"Gondola"
-          else if (
-            text.length > 10 &&
-            !text.includes("Running") &&
-            !text.includes("suspended")
-          ) {
-            if (isOpen) coursesOpen++;
-            else coursesClosed++;
+        });
+
+      return { liftsOpen, liftsClosed };
+    });
+
+    // Click Course tab to see course status
+    try {
+      await page.locator('span.chip-txt:has-text("Course")').first().click();
+      await page.waitForTimeout(2000);
+    } catch {
+      // Course tab might not be clickable
+    }
+
+    // Extract course data - courses use different aria-labels:
+    // "Front glide possible" or "Partial glide possible" = open
+    // "No glide" = closed
+    const courseData = await page.evaluate(() => {
+      let coursesOpen = 0;
+      let coursesClosed = 0;
+
+      document
+        .querySelectorAll(
+          '[aria-label="Front glide possible"], [aria-label="Partial glide possible"], [aria-label="No glide"]'
+        )
+        .forEach((el) => {
+          const label = el.getAttribute("aria-label");
+          if (label === "Front glide possible" || label === "Partial glide possible") {
+            coursesOpen++;
+          } else if (label === "No glide") {
+            coursesClosed++;
           }
         });
 
-      return { liftsOpen, liftsClosed, coursesOpen, coursesClosed };
+      return { coursesOpen, coursesClosed };
     });
+
+    const slopeData = {
+      liftsOpen: liftData.liftsOpen,
+      liftsClosed: liftData.liftsClosed,
+      coursesOpen: courseData.coursesOpen,
+      coursesClosed: courseData.coursesClosed,
+    };
 
     // Determine status based on lift counts
     let status: ScrapedResortData["status"] = "UNKNOWN";
@@ -458,9 +498,12 @@ async function scrapeAkakuraKanko(page: Page): Promise<ScrapedResortData> {
 
   try {
     await page.goto("https://akr-ski.com/slope/", {
-      waitUntil: "networkidle",
-      timeout: 30000,
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
     });
+
+    // Wait for content to load
+    await page.waitForTimeout(5000);
 
     const data = await page.evaluate(() => {
       const t = document.body.innerText;
