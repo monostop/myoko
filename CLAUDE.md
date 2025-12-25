@@ -25,11 +25,13 @@ localStorage ←→ Manual input (status, base depth, lifts)
 
 ### Key Files
 
-- `src/data/resorts.ts` - Static resort configuration (coordinates, elevations, lift counts)
+- `src/data/resorts.ts` - Static resort configuration (coordinates, elevations, lift counts, terrain breakdown)
 - `src/lib/weather-api.ts` - Open-Meteo API client with 1-hour caching
+- `src/lib/recommendation-engine.ts` - Resort scoring algorithm for recommendations
 - `src/hooks/useResortData.ts` - Main data hook combining weather + manual data
 - `src/components/ResortTable.tsx` - Main comparison table
 - `src/components/ManualInputDialog.tsx` - Form for editing resort conditions
+- `src/components/ResortRecommendation/` - AI-powered resort finder
 
 ### Data Sources
 
@@ -42,6 +44,24 @@ localStorage ←→ Manual input (status, base depth, lifts)
 - `WeatherForecast` - Weather data from Open-Meteo
 - `ManualResortData` - User-entered daily conditions
 - `ResortState` - Combined view model for display
+
+### Resort Finder (`src/types/recommendation.ts`)
+
+Rules-based recommendation system that scores resorts based on user preferences:
+
+**Preferences:**
+- `SkillLevel` - beginner, intermediate, advanced, or mixed group
+- `TerrainPreference` - groomed, powder, tree-runs (multi-select)
+- `maxDriveMinutes` - 10-120 min tolerance
+- `familyFriendly` - boolean
+
+**Scoring (100 points total):**
+- Terrain match (40 pts) - skill level alignment + terrain type preference
+- Conditions (25 pts) - open status + fresh snow forecast
+- Convenience (20 pts) - drive time vs user preference
+- Features (15 pts) - family-friendly, unique attributes
+
+The engine parses resort `notes` for keywords (freeride, powder, tree run, kids, family) to match terrain preferences.
 
 ### Tech Stack
 
