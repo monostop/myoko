@@ -1,24 +1,23 @@
 {
-  "scrapedAt": "2025-12-25T01:40:24.898Z",
+  "scrapedAt": "2025-12-25T01:55:56.247Z",
   "resorts": {
     "madarao": {
-      "status": "UNKNOWN",
-      "baseDepthCm": null,
-      "liftsOpen": null,
-      "slopesOpen": null,
-      "temperature": null,
-      "weather": null,
-      "scrapedAt": "2025-12-25T01:40:24.897Z",
-      "error": "goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.madarao.jp/ski\", waiting until \"networkidle\"\u001b[22m\n"
+      "status": "PARTIAL",
+      "baseDepthCm": 10,
+      "liftsOpen": 5,
+      "slopesOpen": 12,
+      "temperature": 3,
+      "weather": "曇り",
+      "scrapedAt": "2025-12-25T01:55:49.579Z"
     },
     "lotte-arai": {
       "status": "PARTIAL",
-      "baseDepthCm": null,
+      "baseDepthCm": 209,
       "liftsOpen": 2,
-      "slopesOpen": 0,
-      "temperature": null,
+      "slopesOpen": 6,
+      "temperature": 9.2,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:40:13.809Z"
+      "scrapedAt": "2025-12-25T01:55:56.247Z"
     },
     "akakura-kanko": {
       "status": "PARTIAL",
@@ -27,16 +26,16 @@
       "slopesOpen": 4,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:40:18.121Z"
+      "scrapedAt": "2025-12-25T01:55:47.256Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:40:00.477Z"
+      "scrapedAt": "2025-12-25T01:55:45.447Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -45,7 +44,7 @@
       "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:40:00.623Z"
+      "scrapedAt": "2025-12-25T01:55:45.679Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
@@ -54,7 +53,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:40:16.061Z"
+      "scrapedAt": "2025-12-25T01:55:53.953Z"
     }
   }
 }

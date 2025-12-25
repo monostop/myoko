@@ -163,15 +163,23 @@ export function RecommendationCard({
         {/* Warnings */}
         {warnings.length > 0 && (
           <ul className="space-y-1.5">
-            {warnings.map((warn, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2 text-xs text-amber-600/80 dark:text-amber-400/80"
-              >
-                <span className="mt-0.5 text-[10px]">!</span>
-                <span>{warn}</span>
-              </li>
-            ))}
+            {warnings.map((warn, i) => {
+              const isClosed = warn.toLowerCase().includes('closed')
+              return (
+                <li
+                  key={i}
+                  className={cn(
+                    'flex items-start gap-2 text-xs',
+                    isClosed
+                      ? 'text-red-600 dark:text-red-400 font-semibold'
+                      : 'text-amber-600/80 dark:text-amber-400/80'
+                  )}
+                >
+                  <span className="mt-0.5 text-[10px]">!</span>
+                  <span>{warn}</span>
+                </li>
+              )
+            })}
           </ul>
         )}
       </div>

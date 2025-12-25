@@ -272,7 +272,7 @@ export function calculateRecommendations(
         rank: 0,
         explanations: [],
         highlights: [],
-        warnings: ['Resort currently closed'],
+        warnings: ['Resort is currently closed'],
       }
     }
 
