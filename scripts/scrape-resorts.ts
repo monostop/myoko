@@ -240,6 +240,287 @@ async function scrapeLotteArai(page: Page): Promise<ScrapedResortData> {
   }
 }
 
+async function scrapeShigaKogen(page: Page): Promise<ScrapedResortData> {
+  console.log("Scraping Shiga Kogen...");
+
+  try {
+    await page.goto("https://shigakogen-ski.or.jp/lift/", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+
+    // Wait for content to load
+    await page.waitForTimeout(5000);
+
+    const data = await page.evaluate(() => {
+      const t = document.body.innerText;
+
+      // Count lift status: 運行中 (Open) vs 運休中 (Closed)
+      const liftsOpen = (t.match(/運行中/g) || []).length;
+      const liftsClosed = (t.match(/運休中/g) || []).length;
+
+      return { liftsOpen, liftsClosed };
+    });
+
+    // Determine status based on lifts
+    let status: ScrapedResortData["status"] = "UNKNOWN";
+    const totalLifts = data.liftsOpen + data.liftsClosed;
+    if (totalLifts > 0) {
+      if (data.liftsOpen === 0) {
+        status = "CLOSED";
+      } else if (data.liftsClosed > 0) {
+        status = "PARTIAL";
+      } else {
+        status = "OPEN";
+      }
+    }
+
+    return {
+      status,
+      baseDepthCm: null,
+      liftsOpen: data.liftsOpen,
+      slopesOpen: null, // Shiga Kogen doesn't show simple slope count
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("Error scraping Shiga Kogen:", error);
+    return {
+      status: "UNKNOWN",
+      baseDepthCm: null,
+      liftsOpen: null,
+      slopesOpen: null,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+async function scrapeSuginohara(page: Page): Promise<ScrapedResortData> {
+  console.log("Scraping Suginohara...");
+
+  try {
+    await page.goto(
+      "https://www.princehotels.co.jp/ski/myoko/winter/coursemap/",
+      {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      }
+    );
+
+    // Wait for content to load
+    await page.waitForTimeout(5000);
+
+    const data = await page.evaluate(() => {
+      const t = document.body.innerText;
+
+      // Look for patterns like "コース 10/16" and "リフト 2/5"
+      let liftsOpen = null;
+      let liftsTotal = null;
+      let coursesOpen = null;
+      let coursesTotal = null;
+
+      // Match lift pattern: リフト followed by number/number
+      const liftMatch = t.match(/リフト\s*(\d+)\s*[/／]\s*(\d+)/);
+      if (liftMatch) {
+        liftsOpen = parseInt(liftMatch[1]);
+        liftsTotal = parseInt(liftMatch[2]);
+      }
+
+      // Match course pattern: コース followed by number/number
+      const courseMatch = t.match(/コース\s*(\d+)\s*[/／]\s*(\d+)/);
+      if (courseMatch) {
+        coursesOpen = parseInt(courseMatch[1]);
+        coursesTotal = parseInt(courseMatch[2]);
+      }
+
+      return { liftsOpen, liftsTotal, coursesOpen, coursesTotal };
+    });
+
+    // Determine status based on lifts (total: 5)
+    let status: ScrapedResortData["status"] = "UNKNOWN";
+    if (data.liftsOpen !== null && data.liftsTotal !== null) {
+      if (data.liftsOpen === 0) {
+        status = "CLOSED";
+      } else if (data.liftsOpen < data.liftsTotal) {
+        status = "PARTIAL";
+      } else {
+        status = "OPEN";
+      }
+    }
+
+    return {
+      status,
+      baseDepthCm: null,
+      liftsOpen: data.liftsOpen,
+      slopesOpen: data.coursesOpen,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("Error scraping Suginohara:", error);
+    return {
+      status: "UNKNOWN",
+      baseDepthCm: null,
+      liftsOpen: null,
+      slopesOpen: null,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+async function scrapeIkenotaira(page: Page): Promise<ScrapedResortData> {
+  console.log("Scraping Ikenotaira...");
+
+  try {
+    // Go directly to the slope guide section
+    await page.goto("https://alpenblick-resort.com/ski#ski_guide", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+
+    // Wait for content to load
+    await page.waitForTimeout(5000);
+
+    const data = await page.evaluate(() => {
+      const t = document.body.innerText;
+
+      // Count lifts: "In service" vs "Service suspended"
+      const liftsOpen = (t.match(/In service/gi) || []).length;
+      const liftsSuspended = (t.match(/Service suspended/gi) || []).length;
+
+      // Count courses: look for "Closed" after course specs
+      const coursesClosed = (t.match(/\)\s*Closed/g) || []).length;
+      const coursesOpen = (t.match(/\)\s*Open(?!ing)/g) || []).length;
+
+      // Check if main page shows CLOSE status
+      const isClosed = /\[Today's business hours\]\s*CLOSE/i.test(t);
+
+      return {
+        liftsOpen,
+        liftsSuspended,
+        coursesOpen,
+        coursesClosed,
+        isClosed,
+      };
+    });
+
+    // Determine status based on lifts (total: 5)
+    let status: ScrapedResortData["status"] = "UNKNOWN";
+    const totalLifts = data.liftsOpen + data.liftsSuspended;
+    if (data.isClosed) {
+      status = "CLOSED";
+    } else if (totalLifts > 0) {
+      if (data.liftsOpen === 0) {
+        status = "CLOSED";
+      } else if (data.liftsOpen < totalLifts) {
+        status = "PARTIAL";
+      } else {
+        status = "OPEN";
+      }
+    } else if (data.coursesOpen === 0 && data.coursesClosed > 0) {
+      status = "CLOSED";
+    }
+
+    return {
+      status,
+      baseDepthCm: null,
+      liftsOpen: data.liftsOpen,
+      slopesOpen: data.coursesOpen,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("Error scraping Ikenotaira:", error);
+    return {
+      status: "UNKNOWN",
+      baseDepthCm: null,
+      liftsOpen: null,
+      slopesOpen: null,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+async function scrapeAkakuraKanko(page: Page): Promise<ScrapedResortData> {
+  console.log("Scraping Akakura Kanko...");
+
+  try {
+    await page.goto("https://akr-ski.com/slope/", {
+      waitUntil: "networkidle",
+      timeout: 30000,
+    });
+
+    const data = await page.evaluate(() => {
+      const t = document.body.innerText;
+
+      // Count lifts: 運行中 (operating) vs 停止中 (stopped)
+      const liftsOpen = (t.match(/運行中/g) || []).length;
+      const liftsStopped = (t.match(/停止中/g) || []).length;
+
+      // Count courses: 滑走可 (skiable) vs 滑走不可 (not skiable)
+      const coursesOpen = (t.match(/滑走可/g) || []).length;
+      const coursesClosed = (t.match(/滑走不可/g) || []).length;
+
+      // Adjust coursesOpen since 滑走可 also matches within 滑走不可
+      const actualCoursesOpen = coursesOpen - coursesClosed;
+
+      return {
+        liftsOpen,
+        liftsStopped,
+        coursesOpen: actualCoursesOpen,
+        coursesClosed,
+      };
+    });
+
+    // Determine status based on lifts (total: 6)
+    let status: ScrapedResortData["status"] = "UNKNOWN";
+    const totalLifts = data.liftsOpen + data.liftsStopped;
+    if (totalLifts > 0) {
+      if (data.liftsOpen === 0) {
+        status = "CLOSED";
+      } else if (data.liftsOpen < totalLifts) {
+        status = "PARTIAL";
+      } else {
+        status = "OPEN";
+      }
+    }
+
+    return {
+      status,
+      baseDepthCm: null,
+      liftsOpen: data.liftsOpen,
+      slopesOpen: data.coursesOpen,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("Error scraping Akakura Kanko:", error);
+    return {
+      status: "UNKNOWN",
+      baseDepthCm: null,
+      liftsOpen: null,
+      slopesOpen: null,
+      temperature: null,
+      weather: null,
+      scrapedAt: new Date().toISOString(),
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 async function main() {
   console.log("Starting resort scraper...");
   console.log("Time:", new Date().toISOString());
@@ -256,9 +537,20 @@ async function main() {
   const page = await context.newPage();
 
   try {
-    const [madarao, lotteArai] = await Promise.all([
+    const [
+      madarao,
+      lotteArai,
+      akakuraKanko,
+      ikenotaira,
+      suginohara,
+      shigaKogen,
+    ] = await Promise.all([
       scrapeMadarao(await context.newPage()),
       scrapeLotteArai(await context.newPage()),
+      scrapeAkakuraKanko(await context.newPage()),
+      scrapeIkenotaira(await context.newPage()),
+      scrapeSuginohara(await context.newPage()),
+      scrapeShigaKogen(await context.newPage()),
     ]);
 
     const output: ScrapedData = {
@@ -266,6 +558,10 @@ async function main() {
       resorts: {
         madarao,
         "lotte-arai": lotteArai,
+        "akakura-kanko": akakuraKanko,
+        ikenotaira,
+        suginohara,
+        "shiga-kogen": shigaKogen,
       },
     };
 

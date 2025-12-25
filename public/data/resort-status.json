@@ -1,23 +1,60 @@
 {
-  "scrapedAt": "2025-12-25T01:12:07.139Z",
+  "scrapedAt": "2025-12-25T01:40:24.898Z",
   "resorts": {
     "madarao": {
-      "status": "PARTIAL",
-      "baseDepthCm": 10,
-      "liftsOpen": 5,
-      "slopesOpen": 12,
-      "temperature": 3,
-      "weather": "曇り",
-      "scrapedAt": "2025-12-25T01:12:03.713Z"
+      "status": "UNKNOWN",
+      "baseDepthCm": null,
+      "liftsOpen": null,
+      "slopesOpen": null,
+      "temperature": null,
+      "weather": null,
+      "scrapedAt": "2025-12-25T01:40:24.897Z",
+      "error": "goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.madarao.jp/ski\", waiting until \"networkidle\"\u001b[22m\n"
     },
     "lotte-arai": {
       "status": "PARTIAL",
-      "baseDepthCm": 209,
+      "baseDepthCm": null,
       "liftsOpen": 2,
       "slopesOpen": 0,
-      "temperature": 9.1,
+      "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:12:07.138Z"
+      "scrapedAt": "2025-12-25T01:40:13.809Z"
+    },
+    "akakura-kanko": {
+      "status": "PARTIAL",
+      "baseDepthCm": null,
+      "liftsOpen": 5,
+      "slopesOpen": 4,
+      "temperature": null,
+      "weather": null,
+      "scrapedAt": "2025-12-25T01:40:18.121Z"
+    },
+    "ikenotaira": {
+      "status": "UNKNOWN",
+      "baseDepthCm": null,
+      "liftsOpen": 0,
+      "slopesOpen": 0,
+      "temperature": null,
+      "weather": null,
+      "scrapedAt": "2025-12-25T01:40:00.477Z"
+    },
+    "suginohara": {
+      "status": "PARTIAL",
+      "baseDepthCm": null,
+      "liftsOpen": 2,
+      "slopesOpen": 10,
+      "temperature": null,
+      "weather": null,
+      "scrapedAt": "2025-12-25T01:40:00.623Z"
+    },
+    "shiga-kogen": {
+      "status": "PARTIAL",
+      "baseDepthCm": null,
+      "liftsOpen": 29,
+      "slopesOpen": null,
+      "temperature": null,
+      "weather": null,
+      "scrapedAt": "2025-12-25T01:40:16.061Z"
     }
   }
 }
