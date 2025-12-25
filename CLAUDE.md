@@ -36,8 +36,20 @@ localStorage ←→ Manual input (status, base depth, lifts)
 **Auto-fetched (Open-Meteo):** Snowfall forecast, temperature, weather conditions
 **Manual input (localStorage):** Resort status (OPEN/PARTIAL/CLOSED), base depth, lifts open
 
+### Key Types (`src/types/index.ts`)
+
+- `ResortConfig` - Static resort data (coordinates, elevations, lift counts)
+- `WeatherForecast` - Weather data from Open-Meteo
+- `ManualResortData` - User-entered daily conditions
+- `ResortState` - Combined view model for display
+
 ### Tech Stack
 
 - Vite + React 19 + TypeScript
 - Tailwind CSS v4 + shadcn/ui
 - Path alias: `@/` → `src/`
+- Deployed to GitHub Pages (base URL: `/myoko/`)
+
+### Assets
+
+Trail map images are stored in `public/maps/` and referenced via `import.meta.env.BASE_URL`.
