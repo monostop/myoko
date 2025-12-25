@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ResortState, ManualResortData, ResortStatus } from '@/types'
+import type { ResortState, ConfigOverride } from '@/types'
 import {
   Dialog,
   DialogContent,
@@ -9,27 +9,13 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
 interface ManualInputDialogProps {
   resort: ResortState
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSave: (data: Partial<ManualResortData>) => void
+  onSave: (data: ConfigOverride) => void
 }
-
-const STATUS_OPTIONS: { value: ResortStatus; label: string }[] = [
-  { value: 'OPEN', label: 'Open' },
-  { value: 'PARTIAL', label: 'Partial' },
-  { value: 'CLOSED', label: 'Closed' },
-  { value: 'UNKNOWN', label: 'Unknown' },
-]
 
 export function ManualInputDialog({
   resort,
@@ -37,25 +23,29 @@ export function ManualInputDialog({
   onOpenChange,
   onSave,
 }: ManualInputDialogProps) {
-  const [status, setStatus] = useState<ResortStatus>(resort.manual.status)
-  const [baseDepth, setBaseDepth] = useState(
-    resort.manual.baseDepthCm?.toString() ?? ''
+  const [beginner, setBeginner] = useState(
+    resort.config.terrain.beginner.toString()
   )
-  const [liftsOpen, setLiftsOpen] = useState(
-    resort.manual.liftsOpen?.toString() ?? ''
+  const [intermediate, setIntermediate] = useState(
+    resort.config.terrain.intermediate.toString()
   )
-  const [slopesOpen, setSlopesOpen] = useState(
-    resort.manual.slopesOpen?.toString() ?? ''
+  const [advanced, setAdvanced] = useState(
+    resort.config.terrain.advanced.toString()
   )
-  const [notes, setNotes] = useState(resort.manual.notes)
+  const [driveMinutes, setDriveMinutes] = useState(
+    resort.config.driveMinutes.toString()
+  )
+  const [notes, setNotes] = useState(resort.config.notes ?? '')
 
   const handleSave = () => {
     onSave({
-      status,
-      baseDepthCm: baseDepth ? parseInt(baseDepth, 10) : null,
-      liftsOpen: liftsOpen ? parseInt(liftsOpen, 10) : null,
-      slopesOpen: slopesOpen ? parseInt(slopesOpen, 10) : null,
-      notes,
+      terrain: {
+        beginner: parseInt(beginner, 10) || 0,
+        intermediate: parseInt(intermediate, 10) || 0,
+        advanced: parseInt(advanced, 10) || 0,
+      },
+      driveMinutes: parseInt(driveMinutes, 10) || 0,
+      notes: notes || undefined,
     })
   }
 
@@ -72,73 +62,62 @@ export function ManualInputDialog({
         </DialogHeader>
 
         <div className="grid gap-5 py-4">
-          {/* Status */}
+          {/* Terrain / Slopes */}
           <div className="grid gap-2">
             <label className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-              Status
+              Slopes by Difficulty
             </label>
-            <Select value={status} onValueChange={(v) => setStatus(v as ResortStatus)}>
-              <SelectTrigger className="h-11">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {STATUS_OPTIONS.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="text-[9px] uppercase tracking-wide text-muted-foreground/70 block mb-1">
+                  Beginner
+                </label>
+                <Input
+                  type="number"
+                  min={0}
+                  value={beginner}
+                  onChange={(e) => setBeginner(e.target.value)}
+                  className="h-11 tabular-nums"
+                />
+              </div>
+              <div>
+                <label className="text-[9px] uppercase tracking-wide text-muted-foreground/70 block mb-1">
+                  Intermediate
+                </label>
+                <Input
+                  type="number"
+                  min={0}
+                  value={intermediate}
+                  onChange={(e) => setIntermediate(e.target.value)}
+                  className="h-11 tabular-nums"
+                />
+              </div>
+              <div>
+                <label className="text-[9px] uppercase tracking-wide text-muted-foreground/70 block mb-1">
+                  Advanced
+                </label>
+                <Input
+                  type="number"
+                  min={0}
+                  value={advanced}
+                  onChange={(e) => setAdvanced(e.target.value)}
+                  className="h-11 tabular-nums"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Base Depth */}
+          {/* Drive Time */}
           <div className="grid gap-2">
             <label className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-              Base Depth (cm)
+              Drive Time (minutes)
             </label>
             <Input
               type="number"
-              placeholder="e.g. 120"
-              value={baseDepth}
-              onChange={(e) => setBaseDepth(e.target.value)}
-              className="h-11 tabular-nums"
-            />
-          </div>
-
-          {/* Lifts Open */}
-          <div className="grid gap-2">
-            <label className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-              Lifts Open
-              <span className="text-muted-foreground/60 ml-1">
-                (of {resort.config.liftsTotal})
-              </span>
-            </label>
-            <Input
-              type="number"
-              placeholder={`0–${resort.config.liftsTotal}`}
               min={0}
-              max={resort.config.liftsTotal}
-              value={liftsOpen}
-              onChange={(e) => setLiftsOpen(e.target.value)}
-              className="h-11 tabular-nums"
-            />
-          </div>
-
-          {/* Slopes Open */}
-          <div className="grid gap-2">
-            <label className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-              Slopes Open
-              <span className="text-muted-foreground/60 ml-1">
-                (of {resort.config.slopesTotal})
-              </span>
-            </label>
-            <Input
-              type="number"
-              placeholder={`0–${resort.config.slopesTotal}`}
-              min={0}
-              max={resort.config.slopesTotal}
-              value={slopesOpen}
-              onChange={(e) => setSlopesOpen(e.target.value)}
+              placeholder="e.g. 15"
+              value={driveMinutes}
+              onChange={(e) => setDriveMinutes(e.target.value)}
               className="h-11 tabular-nums"
             />
           </div>

@@ -2,6 +2,7 @@ import type { ResortState, ResortConfig } from '@/types'
 import type {
   RecommendationPreferences,
   RecommendationResult,
+  ResortVisitCounts,
   ScoreBreakdown,
   SkillLevel,
   TerrainPreference,
@@ -37,7 +38,7 @@ function calculateSkillMatch(
   switch (skill) {
     case 'beginner': {
       const ratio = terrain.beginner / total
-      points = ratio * 25
+      points = ratio * 22
       if (ratio >= 0.4) {
         explanations.push(`${Math.round(ratio * 100)}% beginner terrain`)
       } else if (ratio >= 0.25) {
@@ -47,7 +48,7 @@ function calculateSkillMatch(
     }
     case 'intermediate': {
       const ratio = terrain.intermediate / total
-      points = ratio * 25
+      points = ratio * 22
       if (ratio >= 0.4) {
         explanations.push(`${Math.round(ratio * 100)}% intermediate terrain`)
       }
@@ -55,7 +56,7 @@ function calculateSkillMatch(
     }
     case 'advanced': {
       const ratio = terrain.advanced / total
-      points = ratio * 25
+      points = ratio * 22
       if (ratio >= 0.3) {
         explanations.push(`${Math.round(ratio * 100)}% advanced terrain`)
       }
@@ -66,7 +67,7 @@ function calculateSkillMatch(
         Math.abs(terrain.beginner - terrain.intermediate) +
         Math.abs(terrain.intermediate - terrain.advanced)
       const balance = 1 - variance / (total * 2)
-      points = balance * 25
+      points = balance * 22
       if (balance >= 0.6) {
         explanations.push('Well-balanced terrain for all skill levels')
       }
@@ -84,7 +85,7 @@ function calculateTerrainPreferenceMatch(
 ): { points: number; explanations: string[] } {
   const explanations: string[] = []
   let points = 0
-  const maxPerPref = 15 / Math.max(preferences.length, 1)
+  const maxPerPref = 13 / Math.max(preferences.length, 1)
 
   for (const pref of preferences) {
     switch (pref) {
@@ -138,7 +139,7 @@ function calculateTerrainScore(
   score += prefScore.points
   explanations.push(...prefScore.explanations)
 
-  return { score: Math.min(40, score), explanations }
+  return { score: Math.min(35, score), explanations }
 }
 
 function calculateConditionsScore(resort: ResortState): {
@@ -152,11 +153,11 @@ function calculateConditionsScore(resort: ResortState): {
 
   switch (resort.manual.status) {
     case 'OPEN':
-      score += 10
+      score += 9
       explanations.push('Resort fully open')
       break
     case 'PARTIAL':
-      score += 5
+      score += 4
       warnings.push('Resort partially open')
       break
     case 'CLOSED':
@@ -170,13 +171,13 @@ function calculateConditionsScore(resort: ResortState): {
 
   const snowfall = resort.weather?.snowfall24h ?? 0
   if (snowfall >= 30) {
-    score += 15
+    score += 13
     explanations.push(`${Math.round(snowfall)}cm fresh snow forecast`)
   } else if (snowfall >= 15) {
-    score += 10
+    score += 9
     explanations.push(`${Math.round(snowfall)}cm fresh snow expected`)
   } else if (snowfall >= 5) {
-    score += 5
+    score += 4
     explanations.push(`Light snow forecast (${Math.round(snowfall)}cm)`)
   }
 
@@ -189,7 +190,7 @@ function calculateConditionsScore(resort: ResortState): {
     }
   }
 
-  return { score: Math.min(25, score), explanations, warnings }
+  return { score: Math.min(22, score), explanations, warnings }
 }
 
 function calculateConvenienceScore(
@@ -201,15 +202,15 @@ function calculateConvenienceScore(
 
   if (config.driveMinutes > maxDriveMinutes) {
     const overageRatio = (config.driveMinutes - maxDriveMinutes) / maxDriveMinutes
-    const penalty = Math.min(20, overageRatio * 20)
+    const penalty = Math.min(18, overageRatio * 18)
     warnings.push(
       `${config.driveMinutes} min drive exceeds your ${maxDriveMinutes} min preference`
     )
-    return { score: Math.max(0, 20 - penalty), explanations, warnings }
+    return { score: Math.max(0, 18 - penalty), explanations, warnings }
   }
 
   const efficiency = 1 - config.driveMinutes / maxDriveMinutes
-  const score = 10 + efficiency * 10
+  const score = 9 + efficiency * 9
 
   if (config.driveMinutes <= 10) {
     explanations.push(`Only ${config.driveMinutes} min drive`)
@@ -231,35 +232,79 @@ function calculateFeaturesScore(
 
   if (preferences.familyFriendly) {
     if (features.isFamilyFriendly) {
-      score += 10
+      score += 8
       explanations.push('Family-friendly amenities')
       highlights.push('Great for families')
     } else if (config.terrain.beginner >= 4) {
-      score += 5
+      score += 4
       explanations.push('Multiple beginner slopes for children')
     }
   }
 
   if (features.hasLongRuns) {
-    score += 3
+    score += 2
     highlights.push('Longest run in Japan (8.5km)')
   }
   if (features.isInterconnected) {
-    score += 3
+    score += 2
     highlights.push('21 interconnected resorts')
   }
 
   if (config.slopesTotal >= 30) {
-    score += 2
+    score += 1
     highlights.push(`${config.slopesTotal} slopes`)
   }
 
-  return { score: Math.min(15, score), explanations, highlights }
+  return { score: Math.min(13, score), explanations, highlights }
+}
+
+const NOVELTY_MAX_POINTS = 12
+
+function calculateNoveltyScore(
+  config: ResortConfig,
+  visitCounts: ResortVisitCounts
+): { score: number; explanations: string[]; highlights: string[] } {
+  const explanations: string[] = []
+  const highlights: string[] = []
+
+  const visits = visitCounts[config.id] ?? 0
+
+  // Never visited = maximum novelty
+  if (visits === 0) {
+    highlights.push('Never visited')
+    return { score: NOVELTY_MAX_POINTS, explanations, highlights }
+  }
+
+  // Resort size factor: more slopes = more to explore = slower novelty decay
+  // slopeFactor = slopes / 10, so a 10-slope resort has factor 1, 80-slope has factor 8
+  const slopeFactor = config.slopesTotal / 10
+
+  // Exploration factor: how "explored" is this resort?
+  // visits=2 at 10-slope resort: explorationFactor = 2/1 = 2.0 (fully explored)
+  // visits=2 at 80-slope resort: explorationFactor = 2/8 = 0.25 (barely explored)
+  const explorationFactor = visits / slopeFactor
+
+  // Score decays as exploration increases, capped at 0
+  const score = NOVELTY_MAX_POINTS * (1 - Math.min(1, explorationFactor))
+
+  // Add explanatory text based on novelty level
+  if (score >= NOVELTY_MAX_POINTS * 0.75) {
+    explanations.push(
+      `Only visited ${visits} time${visits > 1 ? 's' : ''} - still lots to explore`
+    )
+  } else if (score >= NOVELTY_MAX_POINTS * 0.5) {
+    explanations.push(`Visited ${visits} times - some areas still unexplored`)
+  } else if (score < NOVELTY_MAX_POINTS * 0.25 && visits >= 3) {
+    explanations.push(`Familiar territory (${visits} visits)`)
+  }
+
+  return { score: Math.max(0, score), explanations, highlights }
 }
 
 export function calculateRecommendations(
   resorts: ResortState[],
-  preferences: RecommendationPreferences
+  preferences: RecommendationPreferences,
+  visitCounts: ResortVisitCounts = {}
 ): RecommendationResult[] {
   const results: RecommendationResult[] = resorts.map((resort) => {
     const isClosed = resort.manual.status === 'CLOSED'
@@ -268,7 +313,7 @@ export function calculateRecommendations(
     if (isClosed) {
       return {
         resortId: resort.config.id,
-        score: { terrain: 0, conditions: 0, convenience: 0, features: 0, total: 0 },
+        score: { terrain: 0, conditions: 0, convenience: 0, features: 0, novelty: 0, total: 0 },
         rank: 0,
         explanations: [],
         highlights: [],
@@ -283,8 +328,14 @@ export function calculateRecommendations(
       preferences.maxDriveMinutes
     )
     const features = calculateFeaturesScore(resort.config, preferences)
+    const novelty = calculateNoveltyScore(resort.config, visitCounts)
 
-    let total = terrain.score + conditions.score + convenience.score + features.score
+    let total =
+      terrain.score +
+      conditions.score +
+      convenience.score +
+      features.score +
+      novelty.score
 
     // Apply severe penalty if drive time exceeds preference
     if (resort.config.driveMinutes > preferences.maxDriveMinutes) {
@@ -298,6 +349,7 @@ export function calculateRecommendations(
       conditions: conditions.score,
       convenience: convenience.score,
       features: features.score,
+      novelty: novelty.score,
       total,
     }
 
@@ -310,8 +362,9 @@ export function calculateRecommendations(
         ...conditions.explanations,
         ...convenience.explanations,
         ...features.explanations,
+        ...novelty.explanations,
       ],
-      highlights: features.highlights,
+      highlights: [...features.highlights, ...novelty.highlights],
       warnings: [...conditions.warnings, ...convenience.warnings],
     }
   })

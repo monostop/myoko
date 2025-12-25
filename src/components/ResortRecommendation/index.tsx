@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import type { ResortState } from '@/types'
-import type { RecommendationPreferences } from '@/types/recommendation'
+import type { RecommendationPreferences, ResortVisitCounts } from '@/types/recommendation'
 import { DEFAULT_PREFERENCES } from '@/types/recommendation'
 import { calculateRecommendations } from '@/lib/recommendation-engine'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { PreferencesForm } from './PreferencesForm'
 import { RecommendationCard } from './RecommendationCard'
 
@@ -14,11 +15,15 @@ interface ResortRecommendationProps {
 export function ResortRecommendation({ resorts }: ResortRecommendationProps) {
   const [preferences, setPreferences] =
     useState<RecommendationPreferences>(DEFAULT_PREFERENCES)
+  const [visitCounts, setVisitCounts] = useLocalStorage<ResortVisitCounts>(
+    'resort-visit-counts',
+    {}
+  )
   const [isExpanded, setIsExpanded] = useState(false)
 
   const recommendations = useMemo(
-    () => calculateRecommendations(resorts, preferences),
-    [resorts, preferences]
+    () => calculateRecommendations(resorts, preferences, visitCounts),
+    [resorts, preferences, visitCounts]
   )
 
   const resortMap = useMemo(
@@ -61,6 +66,8 @@ export function ResortRecommendation({ resorts }: ResortRecommendationProps) {
             <span>Convenience</span>
             <span className="w-2 h-2 rounded-full bg-violet-500/60 ml-2" />
             <span>Features</span>
+            <span className="w-2 h-2 rounded-full bg-rose-500/60 ml-2" />
+            <span>Novelty</span>
           </div>
         </div>
 
@@ -72,6 +79,9 @@ export function ResortRecommendation({ resorts }: ResortRecommendationProps) {
             <PreferencesForm
               preferences={preferences}
               onPreferencesChange={setPreferences}
+              visitCounts={visitCounts}
+              onVisitCountsChange={setVisitCounts}
+              resorts={resorts.map((r) => ({ id: r.config.id, name: r.config.name }))}
             />
           </div>
         </div>
@@ -122,7 +132,7 @@ export function ResortRecommendation({ resorts }: ResortRecommendationProps) {
         )}
 
         {/* Mobile Score Legend */}
-        <div className="sm:hidden flex justify-center gap-4 text-[9px] text-muted-foreground/40 pt-4">
+        <div className="sm:hidden flex flex-wrap justify-center gap-3 text-[9px] text-muted-foreground/40 pt-4">
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500/60" /> Terrain
           </span>
@@ -134,6 +144,9 @@ export function ResortRecommendation({ resorts }: ResortRecommendationProps) {
           </span>
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-violet-500/60" /> Features
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-rose-500/60" /> Novelty
           </span>
         </div>
       </div>

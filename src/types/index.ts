@@ -41,6 +41,13 @@ export interface ManualResortData {
   updatedAt: string
 }
 
+// Config overrides (user can customize static resort data)
+export interface ConfigOverride {
+  terrain?: { beginner: number; intermediate: number; advanced: number }
+  driveMinutes?: number
+  notes?: string
+}
+
 // Combined resort state for display
 export interface ResortState {
   config: ResortConfig

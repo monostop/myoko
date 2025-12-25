@@ -88,6 +88,10 @@ export function RecommendationCard({
               className="h-full bg-violet-500 transition-all duration-500"
               style={{ width: `${score.features}%` }}
             />
+            <div
+              className="h-full bg-rose-500 transition-all duration-500"
+              style={{ width: `${score.novelty}%` }}
+            />
           </div>
         </div>
 

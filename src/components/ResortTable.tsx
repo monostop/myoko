@@ -1,23 +1,17 @@
 import { useState } from 'react'
-import type { ResortState, ManualResortData } from '@/types'
+import type { ResortState, ConfigOverride } from '@/types'
 import { getWeatherIcon } from '@/lib/weather-api'
 import { Button } from '@/components/ui/button'
 import { ManualInputDialog } from './ManualInputDialog'
 
 interface ResortTableProps {
   resorts: ResortState[]
-  onUpdateManualData: (resortId: string, data: Partial<ManualResortData>) => void
-}
-
-function formatTime(isoString: string): string {
-  if (!isoString) return ''
-  const date = new Date(isoString)
-  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+  onUpdateConfigOverride: (resortId: string, data: ConfigOverride) => void
 }
 
 export function ResortTable({
   resorts,
-  onUpdateManualData,
+  onUpdateConfigOverride,
 }: ResortTableProps) {
   const [editingResort, setEditingResort] = useState<ResortState | null>(null)
   const [lightboxImage, setLightboxImage] = useState<{ src: string; title: string } | null>(null)
@@ -259,20 +253,6 @@ export function ResortTable({
         </table>
       </div>
 
-      {/* Last Updated */}
-      {resorts.some(r => r.manual.updatedAt) && (
-        <p className="text-[10px] text-muted-foreground/60 text-right">
-          Last updated:{' '}
-          {formatTime(
-            resorts
-              .map(r => r.manual.updatedAt)
-              .filter(Boolean)
-              .sort()
-              .reverse()[0] ?? ''
-          )}
-        </p>
-      )}
-
       {/* Edit Dialog */}
       {editingResort && (
         <ManualInputDialog
@@ -280,7 +260,7 @@ export function ResortTable({
           open={!!editingResort}
           onOpenChange={(open) => !open && setEditingResort(null)}
           onSave={(data) => {
-            onUpdateManualData(editingResort.config.id, data)
+            onUpdateConfigOverride(editingResort.config.id, data)
             setEditingResort(null)
           }}
         />

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { ManualResortData, WeatherForecast, ResortState, ResortStatus } from '@/types'
+import type { ManualResortData, WeatherForecast, ResortState, ResortStatus, ConfigOverride } from '@/types'
 import { RESORTS } from '@/data/resorts'
 import { useLocalStorage } from './useLocalStorage'
 import { fetchWeatherForAllResorts, fetchHourlyForecast, type DayForecast } from '@/lib/weather-api'
@@ -31,6 +31,7 @@ const DEFAULT_MANUAL_DATA: ManualResortData = {
 }
 
 type ManualDataMap = Record<string, ManualResortData>
+type ConfigOverrideMap = Record<string, ConfigOverride>
 
 // Fetch scraped resort data
 async function fetchScrapedData(): Promise<ScrapedData> {
@@ -49,6 +50,10 @@ async function fetchScrapedData(): Promise<ScrapedData> {
 export function useResortData() {
   const [manualData, setManualData] = useLocalStorage<ManualDataMap>(
     'resort-manual-data',
+    {}
+  )
+  const [configOverrides, setConfigOverrides] = useLocalStorage<ConfigOverrideMap>(
+    'resort-config-overrides',
     {}
   )
   const [scrapedData, setScrapedData] = useState<ScrapedData>({ scrapedAt: null, resorts: {} })
@@ -93,11 +98,20 @@ export function useResortData() {
     [weatherData]
   )
 
-  // Get combined resort state (merges scraped + manual data)
+  // Get combined resort state (merges scraped + manual data + config overrides)
   const getResortStates = useCallback((): ResortState[] => {
-    return RESORTS.map((config) => {
-      const scraped = scrapedData.resorts[config.id]
-      const manual = manualData[config.id] ?? DEFAULT_MANUAL_DATA
+    return RESORTS.map((baseConfig) => {
+      const scraped = scrapedData.resorts[baseConfig.id]
+      const manual = manualData[baseConfig.id] ?? DEFAULT_MANUAL_DATA
+      const override = configOverrides[baseConfig.id]
+
+      // Merge config with overrides
+      const config = {
+        ...baseConfig,
+        terrain: override?.terrain ?? baseConfig.terrain,
+        driveMinutes: override?.driveMinutes ?? baseConfig.driveMinutes,
+        notes: override?.notes ?? baseConfig.notes,
+      }
 
       // Merge scraped data with manual data (manual overrides scraped when set)
       const mergedManual: ManualResortData = {
@@ -111,11 +125,11 @@ export function useResortData() {
 
       return {
         config,
-        weather: getTodayForecast(config.id),
+        weather: getTodayForecast(baseConfig.id),
         manual: mergedManual,
       }
     })
-  }, [manualData, scrapedData, getTodayForecast])
+  }, [manualData, scrapedData, configOverrides, getTodayForecast])
 
   // Update manual data for a resort
   const updateManualData = useCallback(
@@ -132,12 +146,27 @@ export function useResortData() {
     [setManualData]
   )
 
+  // Update config overrides for a resort
+  const updateConfigOverride = useCallback(
+    (resortId: string, data: ConfigOverride) => {
+      setConfigOverrides((prev) => ({
+        ...prev,
+        [resortId]: {
+          ...(prev[resortId] ?? {}),
+          ...data,
+        },
+      }))
+    },
+    [setConfigOverrides]
+  )
+
   return {
     resortStates: getResortStates(),
     hourlyForecast,
     isLoading,
     error,
     updateManualData,
+    updateConfigOverride,
     scrapedAt: scrapedData.scrapedAt,
   }
 }

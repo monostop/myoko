@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
   Select,
@@ -8,6 +9,7 @@ import {
 } from '@/components/ui/select'
 import type {
   RecommendationPreferences,
+  ResortVisitCounts,
   SkillLevel,
   TerrainPreference,
 } from '@/types/recommendation'
@@ -15,6 +17,9 @@ import type {
 interface PreferencesFormProps {
   preferences: RecommendationPreferences
   onPreferencesChange: (preferences: RecommendationPreferences) => void
+  visitCounts: ResortVisitCounts
+  onVisitCountsChange: (counts: ResortVisitCounts) => void
+  resorts: { id: string; name: string }[]
 }
 
 const SKILL_LEVELS: { value: SkillLevel; label: string; icon: string }[] = [
@@ -61,7 +66,12 @@ const TERRAIN_OPTIONS: {
 export function PreferencesForm({
   preferences,
   onPreferencesChange,
+  visitCounts,
+  onVisitCountsChange,
+  resorts,
 }: PreferencesFormProps) {
+  const [showVisitHistory, setShowVisitHistory] = useState(false)
+
   const toggleTerrain = (terrain: TerrainPreference) => {
     const current = preferences.terrainPreferences
     const updated = current.includes(terrain)
@@ -241,6 +251,57 @@ export function PreferencesForm({
             </div>
           </div>
         </button>
+      </div>
+
+      {/* Visit History */}
+      <div className="sm:col-span-2 lg:col-span-4 space-y-3 pt-4 border-t border-border/30">
+        <button
+          onClick={() => setShowVisitHistory(!showVisitHistory)}
+          className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 font-medium hover:text-muted-foreground transition-colors"
+        >
+          <span>Visit History</span>
+          <svg
+            viewBox="0 0 24 24"
+            className={cn(
+              'size-3 transition-transform duration-200',
+              showVisitHistory && 'rotate-180'
+            )}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="text-muted-foreground/40 normal-case tracking-normal font-normal">
+            — helps discover new resorts
+          </span>
+        </button>
+
+        {showVisitHistory && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
+            {resorts.map((resort) => (
+              <div key={resort.id} className="space-y-1">
+                <label className="text-[10px] text-muted-foreground/60 block truncate">
+                  {resort.name}
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  max={99}
+                  value={visitCounts[resort.id] ?? 0}
+                  onChange={(e) => {
+                    const value = Math.max(0, parseInt(e.target.value) || 0)
+                    onVisitCountsChange({
+                      ...visitCounts,
+                      [resort.id]: value,
+                    })
+                  }}
+                  className="w-full h-9 px-2 text-sm text-center rounded-lg border border-border/50 bg-background/50 tabular-nums focus:outline-none focus:ring-1 focus:ring-foreground/20"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

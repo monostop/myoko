@@ -14,7 +14,7 @@ function getTomorrowDate(): string {
 }
 
 export default function App() {
-  const { resortStates, hourlyForecast, updateManualData } = useResortData()
+  const { resortStates, hourlyForecast, updateConfigOverride } = useResortData()
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100/80 dark:from-slate-950 dark:to-slate-900">
@@ -66,7 +66,7 @@ export default function App() {
         <main className="space-y-0">
           <ResortTable
             resorts={resortStates}
-            onUpdateManualData={updateManualData}
+            onUpdateConfigOverride={updateConfigOverride}
           />
 
           {/* Decorative separator */}

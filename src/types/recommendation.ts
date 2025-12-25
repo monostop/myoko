@@ -2,6 +2,8 @@ export type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'mixed'
 
 export type TerrainPreference = 'groomed' | 'powder' | 'tree-runs'
 
+export type ResortVisitCounts = Record<string, number>
+
 export interface RecommendationPreferences {
   skillLevel: SkillLevel
   terrainPreferences: TerrainPreference[]
@@ -14,6 +16,7 @@ export interface ScoreBreakdown {
   conditions: number
   convenience: number
   features: number
+  novelty: number
   total: number
 }
 
