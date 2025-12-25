@@ -1,6 +1,7 @@
 import { useResortData } from '@/hooks/useResortData'
 import { ResortTable } from '@/components/ResortTable'
 import { WeatherForecastBar } from '@/components/WeatherForecast'
+import { ResortRecommendation } from '@/components/ResortRecommendation'
 
 function getTomorrowDate(): string {
   const tomorrow = new Date()
@@ -63,13 +64,20 @@ export default function App() {
         </section>
 
         {/* Main Content */}
-        <main>
+        <main className="space-y-0">
           <ResortTable
             resorts={resortStates}
             isLoading={isLoading}
             onUpdateManualData={updateManualData}
             onRefreshWeather={refreshWeather}
           />
+
+          {/* Decorative separator */}
+          <div className="pt-16">
+            <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
+          </div>
+
+          <ResortRecommendation resorts={resortStates} />
         </main>
 
         {/* Footer */}
