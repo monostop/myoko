@@ -6,9 +6,7 @@ import { ManualInputDialog } from './ManualInputDialog'
 
 interface ResortTableProps {
   resorts: ResortState[]
-  isLoading: boolean
   onUpdateManualData: (resortId: string, data: Partial<ManualResortData>) => void
-  onRefreshWeather: () => void
 }
 
 function formatTime(isoString: string): string {
@@ -19,40 +17,13 @@ function formatTime(isoString: string): string {
 
 export function ResortTable({
   resorts,
-  isLoading,
   onUpdateManualData,
-  onRefreshWeather,
 }: ResortTableProps) {
   const [editingResort, setEditingResort] = useState<ResortState | null>(null)
   const [lightboxImage, setLightboxImage] = useState<{ src: string; title: string } | null>(null)
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">
-            Tomorrow's Conditions
-          </p>
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onRefreshWeather}
-          disabled={isLoading}
-          className="text-xs uppercase tracking-wider"
-        >
-          {isLoading ? (
-            <span className="flex items-center gap-2">
-              <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
-              Loading
-            </span>
-          ) : (
-            'Refresh'
-          )}
-        </Button>
-      </div>
-
       {/* Table */}
       <div className="overflow-x-auto rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm">
         <table className="w-full min-w-[1200px]">

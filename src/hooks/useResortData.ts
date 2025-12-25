@@ -132,32 +132,12 @@ export function useResortData() {
     [setManualData]
   )
 
-  // Refresh weather data
-  const refreshWeather = useCallback(async () => {
-    // Clear cache by removing localStorage items
-    RESORTS.forEach((resort) => {
-      localStorage.removeItem(`weather-cache-${resort.id}`)
-    })
-
-    setIsLoading(true)
-    setError(null)
-    try {
-      const weather = await fetchWeatherForAllResorts(RESORTS)
-      setWeatherData(weather)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch weather')
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
   return {
     resortStates: getResortStates(),
     hourlyForecast,
     isLoading,
     error,
     updateManualData,
-    refreshWeather,
     scrapedAt: scrapedData.scrapedAt,
   }
 }
