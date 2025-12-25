@@ -262,6 +262,20 @@ export function calculateRecommendations(
   preferences: RecommendationPreferences
 ): RecommendationResult[] {
   const results: RecommendationResult[] = resorts.map((resort) => {
+    const isClosed = resort.manual.status === 'CLOSED'
+
+    // Closed resorts get zero score
+    if (isClosed) {
+      return {
+        resortId: resort.config.id,
+        score: { terrain: 0, conditions: 0, convenience: 0, features: 0, total: 0 },
+        rank: 0,
+        explanations: [],
+        highlights: [],
+        warnings: ['Resort currently closed'],
+      }
+    }
+
     const terrain = calculateTerrainScore(resort.config, preferences)
     const conditions = calculateConditionsScore(resort)
     const convenience = calculateConvenienceScore(
