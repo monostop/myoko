@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { WeatherBackground } from './WeatherBackground'
+import { getWeatherIcon } from '@/lib/weather-api'
 import type { ResortState } from '@/types'
 import type { RecommendationResult } from '@/types/recommendation'
 
@@ -36,17 +36,14 @@ export function RecommendationCard({
           : 'border-border/50'
       )}
     >
-      {/* Weather animation background */}
-      {weather && <WeatherBackground weatherCode={weather.weatherCode} />}
-
       {/* Top Pick indicator */}
       {isTopPick && (
-        <div className="absolute -top-px left-6 right-6 z-10">
+        <div className="absolute -top-px left-6 right-6">
           <div className="h-[2px] bg-gradient-to-r from-transparent via-foreground to-transparent" />
         </div>
       )}
 
-      <div className="relative z-10 p-5">
+      <div className="p-5">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="space-y-0.5">
@@ -55,7 +52,14 @@ export function RecommendationCard({
                 Recommended
               </span>
             )}
-            <h3 className="text-lg font-light tracking-tight">{config.name}</h3>
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-light tracking-tight">{config.name}</h3>
+              {weather && (
+                <span className="text-lg" title={`Weather: ${weather.weatherCode}`}>
+                  {getWeatherIcon(weather.weatherCode)}
+                </span>
+              )}
+            </div>
             <p className="text-xs text-muted-foreground/60">{config.nameJp}</p>
           </div>
           <div className="text-right">
@@ -194,7 +198,7 @@ export function RecommendationCard({
 
       {/* Subtle corner accent for top pick */}
       {isTopPick && (
-        <div className="absolute top-0 right-0 w-8 h-8 overflow-hidden rounded-tr-xl z-10">
+        <div className="absolute top-0 right-0 w-8 h-8 overflow-hidden rounded-tr-xl">
           <div className="absolute top-0 right-0 w-12 h-12 -translate-y-1/2 translate-x-1/2 rotate-45 bg-foreground/5" />
         </div>
       )}
