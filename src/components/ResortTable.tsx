@@ -143,8 +143,19 @@ export function ResortTable({
                 {/* Drive Time */}
                 <td className="px-4 py-4 text-center">
                   <span className="tabular-nums text-sm">
-                    {resort.config.driveMinutes}
-                    <span className="text-muted-foreground ml-0.5">m</span>
+                    {resort.config.driveMinutes >= 60 ? (
+                      <>
+                        {Math.floor(resort.config.driveMinutes / 60)}
+                        <span className="text-muted-foreground ml-0.5">h</span>
+                        {resort.config.driveMinutes % 60}
+                        <span className="text-muted-foreground ml-0.5">min</span>
+                      </>
+                    ) : (
+                      <>
+                        {resort.config.driveMinutes}
+                        <span className="text-muted-foreground ml-0.5">min</span>
+                      </>
+                    )}
                   </span>
                 </td>
 
