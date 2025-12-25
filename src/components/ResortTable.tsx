@@ -74,7 +74,7 @@ export function ResortTable({
                 Slopes
               </th>
               <th className="px-4 py-4 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
-                Terrain
+                Difficulty
               </th>
               <th className="px-4 py-4 text-center text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium">
                 Lifts

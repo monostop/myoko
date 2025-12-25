@@ -14,6 +14,29 @@ interface OpenMeteoResponse {
   }
 }
 
+interface OpenMeteoHourlyResponse {
+  hourly: {
+    time: string[]
+    temperature_2m: number[]
+    snowfall: number[]
+    weather_code: number[]
+  }
+}
+
+export interface PeriodForecast {
+  period: 'AM' | 'PM' | 'night'
+  date: string
+  weatherCode: number
+  snowfall: number
+  temperature: number
+}
+
+export interface DayForecast {
+  date: string
+  dayName: string
+  periods: PeriodForecast[]
+}
+
 interface CachedWeather {
   data: WeatherForecast[]
   fetchedAt: number
@@ -65,7 +88,7 @@ export async function fetchWeatherForResort(
     'snowfall_sum,temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code,wind_speed_10m_max'
   )
   url.searchParams.set('timezone', 'Asia/Tokyo')
-  url.searchParams.set('forecast_days', '3')
+  url.searchParams.set('forecast_days', '7')
 
   const response = await fetch(url.toString())
   if (!response.ok) {
@@ -157,4 +180,132 @@ export function getWeatherIcon(code: number): string {
   if (code <= 82) return '🌧️'
   if (code <= 86) return '🌨️'
   return '⛈️'
+}
+
+// Fetch hourly forecast for Akakura Kanko (for detailed period display)
+export async function fetchHourlyForecast(): Promise<DayForecast[]> {
+  const cacheKey = 'hourly-forecast-akakura'
+
+  // Check cache
+  try {
+    const cached = localStorage.getItem(cacheKey)
+    if (cached) {
+      const parsed = JSON.parse(cached)
+      if (Date.now() - parsed.fetchedAt < CACHE_DURATION_MS) {
+        return parsed.data
+      }
+    }
+  } catch {
+    // Ignore cache errors
+  }
+
+  // Akakura Kanko coordinates
+  const url = new URL('https://api.open-meteo.com/v1/forecast')
+  url.searchParams.set('latitude', '36.8833')
+  url.searchParams.set('longitude', '138.1667')
+  url.searchParams.set('hourly', 'temperature_2m,snowfall,weather_code')
+  url.searchParams.set('timezone', 'Asia/Tokyo')
+  url.searchParams.set('forecast_days', '6')
+
+  const response = await fetch(url.toString())
+  if (!response.ok) {
+    throw new Error(`Failed to fetch hourly weather: ${response.statusText}`)
+  }
+
+  const data: OpenMeteoHourlyResponse = await response.json()
+  const days = aggregateHourlyToPeriods(data)
+
+  // Cache results
+  localStorage.setItem(cacheKey, JSON.stringify({
+    data: days,
+    fetchedAt: Date.now(),
+  }))
+
+  return days
+}
+
+function aggregateHourlyToPeriods(data: OpenMeteoHourlyResponse): DayForecast[] {
+  const dayMap = new Map<string, { periods: Map<string, { temps: number[]; snow: number[]; codes: number[] }> }>()
+
+  data.hourly.time.forEach((timeStr, i) => {
+    const date = new Date(timeStr)
+    const dateKey = timeStr.split('T')[0]
+    const hour = date.getHours()
+
+    // Determine period: AM (6-12), PM (12-18), night (18-6)
+    let period: 'AM' | 'PM' | 'night'
+    if (hour >= 6 && hour < 12) {
+      period = 'AM'
+    } else if (hour >= 12 && hour < 18) {
+      period = 'PM'
+    } else {
+      period = 'night'
+    }
+
+    if (!dayMap.has(dateKey)) {
+      dayMap.set(dateKey, { periods: new Map() })
+    }
+    const day = dayMap.get(dateKey)!
+
+    if (!day.periods.has(period)) {
+      day.periods.set(period, { temps: [], snow: [], codes: [] })
+    }
+    const periodData = day.periods.get(period)!
+
+    periodData.temps.push(data.hourly.temperature_2m[i])
+    periodData.snow.push(data.hourly.snowfall[i])
+    periodData.codes.push(data.hourly.weather_code[i])
+  })
+
+  // Convert to array format
+  const days: DayForecast[] = []
+  const sortedDates = Array.from(dayMap.keys()).sort()
+
+  for (const dateKey of sortedDates) {
+    const dayData = dayMap.get(dateKey)!
+    const date = new Date(dateKey)
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'short' })
+
+    const periods: PeriodForecast[] = []
+    for (const period of ['AM', 'PM', 'night'] as const) {
+      const periodData = dayData.periods.get(period)
+      if (periodData && periodData.temps.length > 0) {
+        // Average temperature, sum snowfall, most common weather code
+        const avgTemp = periodData.temps.reduce((a, b) => a + b, 0) / periodData.temps.length
+        const totalSnow = periodData.snow.reduce((a, b) => a + b, 0)
+        const dominantCode = getMostCommon(periodData.codes)
+
+        periods.push({
+          period,
+          date: dateKey,
+          weatherCode: dominantCode,
+          snowfall: totalSnow,
+          temperature: Math.round(avgTemp),
+        })
+      }
+    }
+
+    if (periods.length > 0) {
+      days.push({ date: dateKey, dayName, periods })
+    }
+  }
+
+  return days
+}
+
+function getMostCommon(arr: number[]): number {
+  const counts = new Map<number, number>()
+  let maxCount = 0
+  let mostCommon = arr[0]
+
+  for (const val of arr) {
+    const count = (counts.get(val) ?? 0) + 1
+    counts.set(val, count)
+    if (count > maxCount) {
+      maxCount = count
+      mostCommon = val
+    }
+  }
+
+  return mostCommon
 }

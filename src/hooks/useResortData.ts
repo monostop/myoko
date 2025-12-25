@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import type { ManualResortData, WeatherForecast, ResortState } from '@/types'
 import { RESORTS } from '@/data/resorts'
 import { useLocalStorage } from './useLocalStorage'
-import { fetchWeatherForAllResorts } from '@/lib/weather-api'
+import { fetchWeatherForAllResorts, fetchHourlyForecast, type DayForecast } from '@/lib/weather-api'
 
 const DEFAULT_MANUAL_DATA: ManualResortData = {
   status: 'UNKNOWN',
@@ -23,6 +23,7 @@ export function useResortData() {
   const [weatherData, setWeatherData] = useState<Map<string, WeatherForecast[]>>(
     new Map()
   )
+  const [hourlyForecast, setHourlyForecast] = useState<DayForecast[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -32,8 +33,12 @@ export function useResortData() {
       setIsLoading(true)
       setError(null)
       try {
-        const weather = await fetchWeatherForAllResorts(RESORTS)
+        const [weather, hourly] = await Promise.all([
+          fetchWeatherForAllResorts(RESORTS),
+          fetchHourlyForecast(),
+        ])
         setWeatherData(weather)
+        setHourlyForecast(hourly)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch weather')
       } finally {
@@ -99,6 +104,7 @@ export function useResortData() {
 
   return {
     resortStates: getResortStates(),
+    hourlyForecast,
     isLoading,
     error,
     updateManualData,

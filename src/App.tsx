@@ -1,5 +1,6 @@
 import { useResortData } from '@/hooks/useResortData'
 import { ResortTable } from '@/components/ResortTable'
+import { WeatherForecastBar } from '@/components/WeatherForecast'
 
 function getTomorrowDate(): string {
   const tomorrow = new Date()
@@ -12,7 +13,7 @@ function getTomorrowDate(): string {
 }
 
 export default function App() {
-  const { resortStates, isLoading, updateManualData, refreshWeather } =
+  const { resortStates, hourlyForecast, isLoading, updateManualData, refreshWeather } =
     useResortData()
 
   return (
@@ -53,6 +54,14 @@ export default function App() {
           <div className="mt-8 h-px bg-gradient-to-r from-border via-border/60 to-transparent" />
         </header>
 
+        {/* 6-Day Forecast */}
+        <section className="mb-12">
+          <div className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em] mb-3">
+            Akakura Kanko — 6-Day Forecast
+          </div>
+          <WeatherForecastBar days={hourlyForecast} />
+        </section>
+
         {/* Main Content */}
         <main>
           <ResortTable
@@ -65,17 +74,10 @@ export default function App() {
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-border/30">
-          <div className="flex items-center justify-between text-[10px] text-muted-foreground/50 uppercase tracking-[0.2em]">
-            <span>Base: Akakura Kanko</span>
-            <a
-              href="https://www.snow-forecast.com/resorts/Akakura-Shin-Akakura/6day/mid"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-muted-foreground transition-colors"
-            >
-              Weather Report →
-            </a>
-            <span>Season 2024–25</span>
+          <div className="flex items-center justify-center">
+            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.2em]">
+              Season 2024–25
+            </span>
           </div>
         </footer>
       </div>
