@@ -1,8 +1,15 @@
 # Resort Scraping Notes
 
+*Last updated: 2025-12-25*
+
 ## Overview
 
 This document summarizes the technical findings from implementing automated scraping for Madarao and Lotte Arai ski resorts.
+
+| Resort | Status | Lift/Slope Data |
+|--------|--------|-----------------|
+| Madarao | ✅ Fully working | ✅ Accurate |
+| Lotte Arai | ✅ Fully working | ✅ Accurate |
 
 ## Madarao (madarao.jp/ski)
 
@@ -24,7 +31,7 @@ The page updates daily around 7:28 AM JST.
 
 ## Lotte Arai (lottehotel.com/arai-resort)
 
-**Status: Partially working**
+**Status: Fully working**
 
 ### What Works
 
@@ -32,77 +39,51 @@ The page updates daily around 7:28 AM JST.
 |------------|-------------|-------------|
 | Total snowfall | Main page `/en` | High |
 | Temperature | Main page `/en` | High |
-| Resort status | Snow season page (inferred) | Medium |
+| Lifts open | Slopes guide `/en/snow/slopes-guide` | High |
+| Courses open | Slopes guide `/en/snow/slopes-guide` | High |
 
-### What Doesn't Work
+### Solution: aria-label Attributes
 
-**Lift and slope counts cannot be reliably scraped.**
+The main conditions page (`/en/ski/conditions.html`) renders status indicators as CSS/images, making them unreadable via `innerText`. However, the slopes guide page (`/en/snow/slopes-guide`) uses **aria-label attributes** for accessibility:
 
-#### Root Cause
-
-The Lotte Arai website renders status indicators as **images or CSS-generated content**, not as text characters:
-
-```
-Expected in DOM:    "Zendana Lift ● 8:15-15:30"
-Actual in DOM:      "Zendana Lift 8:15-15:30" (no status symbol)
+```html
+<span class="ico ico-arai-open" aria-label="Open"></span>
+<span class="ico ico-arai-closed" aria-label="Close"></span>
 ```
 
-The status indicators (● for running, × for suspended) are rendered via:
-1. Image elements with alt text
-2. CSS pseudo-elements (::before/::after)
-3. Icon fonts
+The scraper queries these attributes to count open/closed lifts and courses:
 
-When using `document.body.innerText`, these visual indicators are not captured.
+```javascript
+document.querySelectorAll('[aria-label="Open"], [aria-label="Close"]')
+  .forEach((el) => {
+    const row = el.closest("li, tr, div");
+    const text = row?.textContent || "";
+    const isOpen = el.getAttribute("aria-label") === "Open";
 
-#### What Was Tried
+    if (text.includes("Lift") || text.includes("Gondola")) {
+      if (isOpen) liftsOpen++;
+      else liftsClosed++;
+    } else {
+      if (isOpen) coursesOpen++;
+      else coursesClosed++;
+    }
+  });
+```
 
-1. **Text pattern matching** - Looking for ● and × symbols in innerText
-   - Result: Symbols not present in text output
+### Previous Challenges (Now Solved)
 
-2. **Operating hours detection** - Assuming lifts with times are running
-   - Result: All lifts show schedule times regardless of status
-
-3. **Legend text detection** - Looking for "Running" or "Service suspended" text
-   - Result: Only legend labels found, not per-lift status
-
-### Potential Solutions (Not Implemented)
-
-1. **Query image alt attributes**
-   ```javascript
-   document.querySelectorAll('img[alt="Running"]').length
-   ```
-
-2. **Check CSS classes on status elements**
-   ```javascript
-   document.querySelectorAll('.lift-status.open').length
-   ```
-
-3. **Parse aria-labels for accessibility data**
-   ```javascript
-   element.getAttribute('aria-label')
-   ```
-
-4. **Screenshot-based OCR** - Take screenshots and use image recognition
-   - Overkill for this use case
-
-### Current Workaround
-
-- Lift/slope counts return `null` from scraper
-- Manual entry via the app UI still works
-- Status is inferred from presence of "Running" text (PARTIAL if both Running and Suspended text found)
+The original conditions page (`/en/ski/conditions.html`) had these issues:
+- Status symbols (● and ×) rendered via CSS pseudo-elements
+- `document.body.innerText` couldn't capture these visual indicators
+- All lifts showed schedule times regardless of actual status
 
 ---
 
 ## Recommendations
 
-1. **For Madarao**: Current scraper is production-ready
+1. **Both scrapers are production-ready** - Madarao and Lotte Arai fully automated
 
-2. **For Lotte Arai**:
-   - Accept partial automation (weather data only)
-   - Use manual entry for lift/slope counts
-   - Consider revisiting if the resort updates their website
-
-3. **Future improvements**:
+2. **Future improvements**:
    - Add more resorts (Akakura Kanko, Suginohara, etc.)
    - Implement retry logic for transient failures
    - Add Slack/Discord notifications on scrape errors

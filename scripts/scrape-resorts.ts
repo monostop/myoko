@@ -160,53 +160,67 @@ async function scrapeLotteArai(page: Page): Promise<ScrapedResortData> {
       return result;
     });
 
-    // Go to slope conditions page for lift/course data
-    await page.goto("https://www.lottehotel.com/arai-resort/en/snow-season", {
-      waitUntil: "domcontentloaded",
-      timeout: 60000,
-    });
+    // Go to slopes-guide page which has lift/course status via aria-labels
+    await page.goto(
+      "https://www.lottehotel.com/arai-resort/en/snow/slopes-guide",
+      {
+        waitUntil: "domcontentloaded",
+        timeout: 60000,
+      }
+    );
 
-    // Wait for slope conditions to load
+    // Wait for content to load
     await page.waitForTimeout(5000);
 
-    // Try to extract lift/course data from the slope conditions page
-    // Note: Status indicators are rendered as images, not text, making accurate
-    // counting difficult. We'll return null for these fields when uncertain.
+    // Extract lift/course data using aria-label attributes
+    // aria-label="Open" = running, aria-label="Close" = suspended
     const slopeData = await page.evaluate(() => {
-      const t = document.body.innerText;
+      let liftsOpen = 0;
+      let liftsClosed = 0;
+      let coursesOpen = 0;
+      let coursesClosed = 0;
 
-      // Look for "Running" text or count text patterns
-      // The page shows a legend: "● Running | △ Preparing | × Service suspended"
-      const hasRunning = t.includes("Running");
-      const hasSuspended = t.includes("Service suspended") || t.includes("×");
+      document
+        .querySelectorAll('[aria-label="Open"], [aria-label="Close"]')
+        .forEach((el) => {
+          const row = el.closest("li, tr, div");
+          const text = row?.textContent || "";
+          const isOpen = el.getAttribute("aria-label") === "Open";
 
-      // Try to find any numeric indicators like "2/5" or similar
-      const liftCountMatch = t.match(/(\d+)\s*\/\s*(\d+)\s*lift/i);
-      const courseCountMatch = t.match(/(\d+)\s*\/\s*(\d+)\s*course/i);
+          // Lifts have "Lift" or "Gondola" in the text
+          if (text.includes("Lift") || text.includes("Gondola")) {
+            if (isOpen) liftsOpen++;
+            else liftsClosed++;
+          }
+          // Courses have course names but no "Lift"/"Gondola"
+          else if (
+            text.length > 10 &&
+            !text.includes("Running") &&
+            !text.includes("suspended")
+          ) {
+            if (isOpen) coursesOpen++;
+            else coursesClosed++;
+          }
+        });
 
-      return {
-        liftsOpen: liftCountMatch ? parseInt(liftCountMatch[1]) : null,
-        coursesOpen: courseCountMatch ? parseInt(courseCountMatch[1]) : null,
-        hasRunningIndicator: hasRunning,
-        hasSuspendedIndicator: hasSuspended,
-      };
+      return { liftsOpen, liftsClosed, coursesOpen, coursesClosed };
     });
 
-    // Determine status based on indicators
+    // Determine status based on lift counts
     let status: ScrapedResortData["status"] = "UNKNOWN";
-    if (slopeData.hasRunningIndicator && slopeData.hasSuspendedIndicator) {
-      status = "PARTIAL"; // Some lifts running, some suspended
-    } else if (slopeData.hasRunningIndicator) {
+    if (slopeData.liftsOpen > 0 && slopeData.liftsClosed > 0) {
+      status = "PARTIAL";
+    } else if (slopeData.liftsOpen > 0) {
       status = "OPEN";
-    } else if (slopeData.hasSuspendedIndicator) {
+    } else if (slopeData.liftsClosed > 0) {
       status = "CLOSED";
     }
 
     return {
       status,
       baseDepthCm: (weatherData.totalSnowfallCm as number) ?? null,
-      liftsOpen: slopeData.liftsOpen ?? null,
-      slopesOpen: slopeData.coursesOpen ?? null,
+      liftsOpen: slopeData.liftsOpen,
+      slopesOpen: slopeData.coursesOpen,
       temperature: (weatherData.temperatureC as number) ?? null,
       weather: null, // Lotte Arai doesn't show weather description
       scrapedAt: new Date().toISOString(),

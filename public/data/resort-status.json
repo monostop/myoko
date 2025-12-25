@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2025-12-25T01:02:53.887Z",
+  "scrapedAt": "2025-12-25T01:12:07.139Z",
   "resorts": {
     "madarao": {
       "status": "PARTIAL",
@@ -8,16 +8,16 @@
       "slopesOpen": 12,
       "temperature": 3,
       "weather": "曇り",
-      "scrapedAt": "2025-12-25T01:02:53.508Z"
+      "scrapedAt": "2025-12-25T01:12:03.713Z"
     },
     "lotte-arai": {
       "status": "PARTIAL",
       "baseDepthCm": 209,
-      "liftsOpen": null,
-      "slopesOpen": null,
+      "liftsOpen": 2,
+      "slopesOpen": 0,
       "temperature": 9.1,
       "weather": null,
-      "scrapedAt": "2025-12-25T01:02:53.887Z"
+      "scrapedAt": "2025-12-25T01:12:07.138Z"
     }
   }
 }
