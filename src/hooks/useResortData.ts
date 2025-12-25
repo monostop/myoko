@@ -83,12 +83,12 @@ export function useResortData() {
     fetchData()
   }, [])
 
-  // Get tomorrow's forecast for a resort
-  const getTomorrowForecast = useCallback(
+  // Get today's forecast for a resort
+  const getTodayForecast = useCallback(
     (resortId: string): WeatherForecast | null => {
       const forecasts = weatherData.get(resortId)
-      if (!forecasts || forecasts.length < 2) return null
-      return forecasts[1] // Index 1 is tomorrow
+      if (!forecasts || forecasts.length < 1) return null
+      return forecasts[0] // Index 0 is today
     },
     [weatherData]
   )
@@ -111,11 +111,11 @@ export function useResortData() {
 
       return {
         config,
-        weather: getTomorrowForecast(config.id),
+        weather: getTodayForecast(config.id),
         manual: mergedManual,
       }
     })
-  }, [manualData, scrapedData, getTomorrowForecast])
+  }, [manualData, scrapedData, getTodayForecast])
 
   // Update manual data for a resort
   const updateManualData = useCallback(

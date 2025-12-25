@@ -284,13 +284,21 @@ export function calculateRecommendations(
     )
     const features = calculateFeaturesScore(resort.config, preferences)
 
+    let total = terrain.score + conditions.score + convenience.score + features.score
+
+    // Apply severe penalty if drive time exceeds preference
+    if (resort.config.driveMinutes > preferences.maxDriveMinutes) {
+      const overageRatio = (resort.config.driveMinutes - preferences.maxDriveMinutes) / preferences.maxDriveMinutes
+      const multiplier = 1 / (1 + overageRatio)
+      total = total * multiplier
+    }
+
     const score: ScoreBreakdown = {
       terrain: terrain.score,
       conditions: conditions.score,
       convenience: convenience.score,
       features: features.score,
-      total:
-        terrain.score + conditions.score + convenience.score + features.score,
+      total,
     }
 
     return {
