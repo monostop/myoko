@@ -1,14 +1,14 @@
 {
-  "scrapedAt": "2025-12-25T22:37:31.635Z",
+  "scrapedAt": "2025-12-26T22:37:51.803Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 30,
+      "baseDepthCm": 80,
       "liftsOpen": null,
-      "slopesOpen": null,
-      "temperature": -4,
-      "weather": "吹雪",
-      "scrapedAt": "2025-12-25T22:36:33.028Z"
+      "slopesOpen": 18,
+      "temperature": -7,
+      "weather": "晴れ",
+      "scrapedAt": "2025-12-26T22:36:52.663Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,44 +17,44 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T22:37:31.635Z",
+      "scrapedAt": "2025-12-26T22:37:51.803Z",
       "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 5,
-      "slopesOpen": 4,
+      "liftsOpen": 4,
+      "slopesOpen": 6,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T22:36:30.318Z"
+      "scrapedAt": "2025-12-26T22:36:49.450Z"
     },
     "ikenotaira": {
-      "status": "CLOSED",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T22:36:29.949Z"
+      "scrapedAt": "2025-12-26T22:36:48.642Z"
     },
     "suginohara": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 2,
+      "liftsOpen": 3,
       "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T22:36:30.704Z"
+      "scrapedAt": "2025-12-26T22:36:52.452Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 4,
+      "liftsOpen": 6,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-25T22:36:36.760Z"
+      "scrapedAt": "2025-12-26T22:36:56.271Z"
     }
   }
 }
