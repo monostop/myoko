@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2025-12-29T22:36:47.496Z",
+  "scrapedAt": "2025-12-30T22:37:29.129Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -7,26 +7,27 @@
       "liftsOpen": null,
       "slopesOpen": 19,
       "temperature": -1,
-      "weather": "晴れ",
-      "scrapedAt": "2025-12-29T22:36:38.118Z"
+      "weather": "雪",
+      "scrapedAt": "2025-12-30T22:36:29.609Z"
     },
     "lotte-arai": {
-      "status": "CLOSED",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-29T22:36:47.496Z"
+      "scrapedAt": "2025-12-30T22:37:29.129Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
       "baseDepthCm": null,
       "liftsOpen": 6,
-      "slopesOpen": 11,
+      "slopesOpen": 9,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-29T22:36:35.232Z"
+      "scrapedAt": "2025-12-30T22:36:26.223Z"
     },
     "ikenotaira": {
       "status": "UNKNOWN",
@@ -35,25 +36,25 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-29T22:36:34.239Z"
+      "scrapedAt": "2025-12-30T22:36:25.757Z"
     },
     "suginohara": {
       "status": "PARTIAL",
       "baseDepthCm": null,
       "liftsOpen": 4,
-      "slopesOpen": 15,
+      "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-29T22:36:38.313Z"
+      "scrapedAt": "2025-12-30T22:36:29.710Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 10,
+      "liftsOpen": 16,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-29T22:36:42.496Z"
+      "scrapedAt": "2025-12-30T22:36:34.021Z"
     }
   }
 }
