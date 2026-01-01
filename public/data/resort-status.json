@@ -1,33 +1,32 @@
 {
-  "scrapedAt": "2025-12-31T22:38:14.604Z",
+  "scrapedAt": "2026-01-01T22:37:02.747Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
       "baseDepthCm": 80,
       "liftsOpen": null,
-      "slopesOpen": 19,
-      "temperature": -5,
-      "weather": "雪",
-      "scrapedAt": "2025-12-31T22:37:16.149Z"
+      "slopesOpen": null,
+      "temperature": -6,
+      "weather": "曇り",
+      "scrapedAt": "2026-01-01T22:36:53.893Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": null,
-      "slopesOpen": null,
+      "liftsOpen": 0,
+      "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-31T22:38:14.603Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-01-01T22:37:02.746Z"
     },
     "akakura-kanko": {
       "status": "OPEN",
       "baseDepthCm": null,
       "liftsOpen": 6,
-      "slopesOpen": 9,
+      "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-31T22:37:12.663Z"
+      "scrapedAt": "2026-01-01T22:36:50.478Z"
     },
     "ikenotaira": {
       "status": "UNKNOWN",
@@ -36,7 +35,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-31T22:37:12.254Z"
+      "scrapedAt": "2026-01-01T22:36:49.745Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -45,16 +44,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-31T22:37:16.190Z"
+      "scrapedAt": "2026-01-01T22:36:55.139Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 13,
+      "liftsOpen": 19,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2025-12-31T22:37:20.022Z"
+      "scrapedAt": "2026-01-01T22:36:56.996Z"
     }
   }
 }
