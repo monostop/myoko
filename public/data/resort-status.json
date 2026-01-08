@@ -1,24 +1,23 @@
 {
-  "scrapedAt": "2026-01-07T22:38:33.126Z",
+  "scrapedAt": "2026-01-08T22:38:03.311Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 120,
+      "baseDepthCm": 160,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": -2,
-      "weather": "雪",
-      "scrapedAt": "2026-01-07T22:37:34.846Z"
+      "temperature": -7,
+      "weather": "晴れ",
+      "scrapedAt": "2026-01-08T22:37:53.878Z"
     },
     "lotte-arai": {
-      "status": "UNKNOWN",
+      "status": "OPEN",
       "baseDepthCm": null,
-      "liftsOpen": null,
-      "slopesOpen": null,
+      "liftsOpen": 5,
+      "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-07T22:38:33.125Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-01-08T22:38:03.311Z"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -27,7 +26,7 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-07T22:37:32.786Z"
+      "scrapedAt": "2026-01-08T22:37:51.125Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -36,7 +35,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-07T22:37:31.676Z"
+      "scrapedAt": "2026-01-08T22:37:50.258Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -45,16 +44,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-07T22:37:32.259Z"
+      "scrapedAt": "2026-01-08T22:37:54.692Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 15,
+      "liftsOpen": 7,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-07T22:37:37.878Z"
+      "scrapedAt": "2026-01-08T22:37:58.673Z"
     }
   }
 }
