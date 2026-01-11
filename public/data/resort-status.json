@@ -1,32 +1,33 @@
 {
-  "scrapedAt": "2026-01-10T22:37:14.846Z",
+  "scrapedAt": "2026-01-11T22:37:20.255Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 130,
+      "baseDepthCm": 160,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": null,
-      "weather": "雪",
-      "scrapedAt": "2026-01-10T22:36:35.977Z"
+      "temperature": -6,
+      "weather": "晴れ",
+      "scrapedAt": "2026-01-11T22:36:30.094Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-10T22:37:14.846Z"
+      "scrapedAt": "2026-01-11T22:37:20.255Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
-      "status": "PARTIAL",
+      "status": "OPEN",
       "baseDepthCm": null,
-      "liftsOpen": 5,
+      "liftsOpen": 6,
       "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-10T22:36:32.759Z"
+      "scrapedAt": "2026-01-11T22:36:27.653Z"
     },
     "ikenotaira": {
       "status": "UNKNOWN",
@@ -35,7 +36,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-10T22:36:33.005Z"
+      "scrapedAt": "2026-01-11T22:36:26.819Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,7 +45,7 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-10T22:36:35.606Z"
+      "scrapedAt": "2026-01-11T22:36:29.949Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
@@ -53,7 +54,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-10T22:36:39.509Z"
+      "scrapedAt": "2026-01-11T22:36:32.088Z"
     }
   }
 }
