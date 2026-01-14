@@ -1,23 +1,24 @@
 {
-  "scrapedAt": "2026-01-13T22:38:34.070Z",
+  "scrapedAt": "2026-01-14T22:39:22.048Z",
   "resorts": {
     "madarao": {
       "status": "PARTIAL",
-      "baseDepthCm": 165,
+      "baseDepthCm": 140,
       "liftsOpen": 8,
       "slopesOpen": null,
-      "temperature": -5,
-      "weather": "曇り",
-      "scrapedAt": "2026-01-13T22:38:23.566Z"
+      "temperature": -2,
+      "weather": "晴れ",
+      "scrapedAt": "2026-01-14T22:38:23.746Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-13T22:38:34.070Z"
+      "scrapedAt": "2026-01-14T22:39:22.048Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -26,7 +27,7 @@
       "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-13T22:38:20.341Z"
+      "scrapedAt": "2026-01-14T22:38:20.114Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -35,7 +36,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-13T22:38:19.803Z"
+      "scrapedAt": "2026-01-14T22:38:19.725Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,7 +45,7 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-13T22:38:24.799Z"
+      "scrapedAt": "2026-01-14T22:38:23.523Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
@@ -53,7 +54,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-13T22:38:30.095Z"
+      "scrapedAt": "2026-01-14T22:38:28.294Z"
     }
   }
 }
