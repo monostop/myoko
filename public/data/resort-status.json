@@ -1,32 +1,33 @@
 {
-  "scrapedAt": "2026-01-16T22:37:40.646Z",
+  "scrapedAt": "2026-01-17T22:37:22.461Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
       "baseDepthCm": 120,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": 1,
-      "weather": "晴れ",
-      "scrapedAt": "2026-01-16T22:37:30.835Z"
+      "temperature": -3,
+      "weather": "雪",
+      "scrapedAt": "2026-01-17T22:36:22.077Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-16T22:37:40.646Z"
+      "scrapedAt": "2026-01-17T22:37:22.461Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
       "baseDepthCm": null,
       "liftsOpen": 6,
-      "slopesOpen": 10,
+      "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-16T22:37:31.296Z"
+      "scrapedAt": "2026-01-17T22:36:19.700Z"
     },
     "ikenotaira": {
       "status": "UNKNOWN",
@@ -35,7 +36,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-16T22:37:27.498Z"
+      "scrapedAt": "2026-01-17T22:36:18.268Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,16 +45,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-16T22:37:31.635Z"
+      "scrapedAt": "2026-01-17T22:36:21.759Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 9,
+      "liftsOpen": 8,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-16T22:37:34.208Z"
+      "scrapedAt": "2026-01-17T22:36:26.975Z"
     }
   }
 }
