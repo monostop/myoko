@@ -1,14 +1,14 @@
 {
-  "scrapedAt": "2026-01-17T22:37:22.461Z",
+  "scrapedAt": "2026-01-18T22:37:32.972Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 120,
+      "baseDepthCm": 115,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": -3,
-      "weather": "雪",
-      "scrapedAt": "2026-01-17T22:36:22.077Z"
+      "temperature": -1,
+      "weather": "曇り",
+      "scrapedAt": "2026-01-18T22:36:32.988Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,26 +17,26 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-17T22:37:22.461Z",
+      "scrapedAt": "2026-01-18T22:37:32.971Z",
       "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
       "baseDepthCm": null,
       "liftsOpen": 6,
-      "slopesOpen": 11,
+      "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-17T22:36:19.700Z"
+      "scrapedAt": "2026-01-18T22:36:29.701Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-17T22:36:18.268Z"
+      "scrapedAt": "2026-01-18T22:36:29.364Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -45,16 +45,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-17T22:36:21.759Z"
+      "scrapedAt": "2026-01-18T22:36:32.762Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 8,
+      "liftsOpen": 11,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-17T22:36:26.975Z"
+      "scrapedAt": "2026-01-18T22:36:39.687Z"
     }
   }
 }
