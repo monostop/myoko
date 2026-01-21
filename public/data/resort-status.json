@@ -1,23 +1,24 @@
 {
-  "scrapedAt": "2026-01-20T22:37:28.570Z",
+  "scrapedAt": "2026-01-21T22:42:06.541Z",
   "resorts": {
     "madarao": {
       "status": "PARTIAL",
-      "baseDepthCm": 140,
+      "baseDepthCm": 180,
       "liftsOpen": 8,
       "slopesOpen": null,
-      "temperature": -9,
-      "weather": "晴れ",
-      "scrapedAt": "2026-01-20T22:37:19.180Z"
+      "temperature": -10,
+      "weather": "雪",
+      "scrapedAt": "2026-01-21T22:41:07.650Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 6,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-20T22:37:28.569Z"
+      "scrapedAt": "2026-01-21T22:42:06.541Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -26,7 +27,7 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-20T22:37:15.169Z"
+      "scrapedAt": "2026-01-21T22:41:04.835Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -35,25 +36,25 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-20T22:37:14.661Z"
+      "scrapedAt": "2026-01-21T22:41:04.130Z"
     },
     "suginohara": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 3,
+      "liftsOpen": 4,
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-20T22:37:18.101Z"
+      "scrapedAt": "2026-01-21T22:41:07.032Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 8,
+      "liftsOpen": 10,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-20T22:37:22.130Z"
+      "scrapedAt": "2026-01-21T22:41:11.090Z"
     }
   }
 }
