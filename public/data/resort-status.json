@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-01-24T22:37:29.156Z",
+  "scrapedAt": "2026-01-25T22:37:53.772Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": -8,
       "weather": "吹雪",
-      "scrapedAt": "2026-01-24T22:36:30.753Z"
+      "scrapedAt": "2026-01-25T22:37:03.585Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,44 +17,44 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-24T22:37:29.155Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-01-25T22:37:53.771Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
       "baseDepthCm": null,
-      "liftsOpen": 6,
-      "slopesOpen": 11,
+      "liftsOpen": 7,
+      "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-24T22:36:27.723Z"
+      "scrapedAt": "2026-01-25T22:37:00.684Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-24T22:36:27.048Z"
+      "scrapedAt": "2026-01-25T22:37:00.465Z"
     },
     "suginohara": {
-      "status": "OPEN",
+      "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 5,
-      "slopesOpen": 16,
+      "liftsOpen": 4,
+      "slopesOpen": 13,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-24T22:36:30.361Z"
+      "scrapedAt": "2026-01-25T22:37:03.683Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 5,
+      "liftsOpen": 4,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-24T22:36:34.006Z"
+      "scrapedAt": "2026-01-25T22:37:07.358Z"
     }
   }
 }
