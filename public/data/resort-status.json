@@ -1,23 +1,24 @@
 {
-  "scrapedAt": "2026-01-30T22:41:22.673Z",
+  "scrapedAt": "2026-01-31T22:40:04.394Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 280,
+      "baseDepthCm": 240,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": -8,
-      "weather": "曇り",
-      "scrapedAt": "2026-01-30T22:41:13.848Z"
+      "temperature": -5,
+      "weather": "雪",
+      "scrapedAt": "2026-01-31T22:39:04.027Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-30T22:41:22.673Z"
+      "scrapedAt": "2026-01-31T22:40:04.394Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -26,16 +27,16 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-30T22:41:09.995Z"
+      "scrapedAt": "2026-01-31T22:39:00.800Z"
     },
     "ikenotaira": {
-      "status": "CLOSED",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-30T22:41:10.043Z"
+      "scrapedAt": "2026-01-31T22:39:00.130Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,16 +45,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-30T22:41:13.355Z"
+      "scrapedAt": "2026-01-31T22:39:04.440Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 9,
+      "liftsOpen": 10,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-01-30T22:41:16.962Z"
+      "scrapedAt": "2026-01-31T22:39:08.115Z"
     }
   }
 }
