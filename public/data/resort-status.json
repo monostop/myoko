@@ -1,23 +1,24 @@
 {
-  "scrapedAt": "2026-02-04T22:41:58.129Z",
+  "scrapedAt": "2026-02-05T22:43:26.903Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 215,
+      "baseDepthCm": 210,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": -2,
+      "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-02-04T22:41:48.434Z"
+      "scrapedAt": "2026-02-05T22:42:27.527Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-04T22:41:58.129Z"
+      "scrapedAt": "2026-02-05T22:43:26.903Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "PARTIAL",
@@ -26,16 +27,16 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-04T22:41:45.900Z"
+      "scrapedAt": "2026-02-05T22:42:23.883Z"
     },
     "ikenotaira": {
-      "status": "CLOSED",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-04T22:41:45.123Z"
+      "scrapedAt": "2026-02-05T22:42:23.543Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,16 +45,16 @@
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-04T22:41:49.306Z"
+      "scrapedAt": "2026-02-05T22:42:27.076Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 6,
+      "liftsOpen": 9,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-04T22:41:52.426Z"
+      "scrapedAt": "2026-02-05T22:42:31.530Z"
     }
   }
 }
