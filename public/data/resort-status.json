@@ -1,14 +1,14 @@
 {
-  "scrapedAt": "2026-02-22T22:41:24.674Z",
+  "scrapedAt": "2026-02-23T22:44:48.888Z",
   "resorts": {
     "madarao": {
-      "status": "UNKNOWN",
+      "status": "PARTIAL",
       "baseDepthCm": 190,
-      "liftsOpen": null,
+      "liftsOpen": 8,
       "slopesOpen": null,
-      "temperature": 2,
-      "weather": "雨",
-      "scrapedAt": "2026-02-22T22:40:24.433Z"
+      "temperature": null,
+      "weather": "晴れ",
+      "scrapedAt": "2026-02-23T22:44:46.457Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,8 +17,8 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-22T22:41:24.674Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-02-23T22:44:43.273Z",
+      "error": "evaluate: TypeError: Cannot read properties of null (reading 'innerText')\n    at eval (eval at evaluate (:290:30), <anonymous>:2:31)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -27,34 +27,34 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-22T22:40:21.452Z"
+      "scrapedAt": "2026-02-23T22:44:42.701Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
       "liftsOpen": 0,
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-22T22:40:20.833Z"
+      "scrapedAt": "2026-02-23T22:44:41.970Z"
     },
     "suginohara": {
-      "status": "OPEN",
+      "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 5,
+      "liftsOpen": 4,
       "slopesOpen": 16,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-22T22:40:24.633Z"
+      "scrapedAt": "2026-02-23T22:44:42.960Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 15,
+      "liftsOpen": 6,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-02-22T22:40:29.167Z"
+      "scrapedAt": "2026-02-23T22:44:48.888Z"
     }
   }
 }
