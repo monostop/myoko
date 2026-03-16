@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-03-15T22:42:27.728Z",
+  "scrapedAt": "2026-03-16T22:44:36.816Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,16 +8,17 @@
       "slopesOpen": null,
       "temperature": -2,
       "weather": "晴れ",
-      "scrapedAt": "2026-03-15T22:41:38.477Z"
+      "scrapedAt": "2026-03-16T22:43:38.676Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
-      "baseDepthCm": 1654,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
-      "temperature": 3,
+      "baseDepthCm": null,
+      "liftsOpen": null,
+      "slopesOpen": null,
+      "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-15T22:41:47.512Z"
+      "scrapedAt": "2026-03-16T22:44:36.815Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "OPEN",
@@ -26,36 +27,34 @@
       "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-15T22:41:35.487Z"
+      "scrapedAt": "2026-03-16T22:43:34.125Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
-      "liftsOpen": null,
-      "slopesOpen": null,
+      "liftsOpen": 0,
+      "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-15T22:42:27.679Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://alpenblick-resort.com/ski#ski_guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-03-16T22:43:33.628Z"
     },
     "suginohara": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 4,
-      "slopesOpen": 16,
+      "liftsOpen": 2,
+      "slopesOpen": 11,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-15T22:41:34.826Z"
+      "scrapedAt": "2026-03-16T22:43:38.498Z"
     },
     "shiga-kogen": {
-      "status": "UNKNOWN",
+      "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": null,
+      "liftsOpen": 14,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-15T22:42:27.728Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://shigakogen-ski.or.jp/lift/\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-03-16T22:43:42.821Z"
     }
   }
 }
