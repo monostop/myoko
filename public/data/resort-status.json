@@ -1,23 +1,24 @@
 {
-  "scrapedAt": "2026-03-26T22:42:58.824Z",
+  "scrapedAt": "2026-03-27T22:44:33.458Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
-      "baseDepthCm": 100,
+      "baseDepthCm": 90,
       "liftsOpen": null,
       "slopesOpen": null,
-      "temperature": 4,
-      "weather": "曇り",
-      "scrapedAt": "2026-03-26T22:42:50.271Z"
+      "temperature": 6,
+      "weather": "晴れ",
+      "scrapedAt": "2026-03-27T22:43:31.732Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
-      "baseDepthCm": 1658,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
-      "temperature": 7,
+      "baseDepthCm": null,
+      "liftsOpen": null,
+      "slopesOpen": null,
+      "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-26T22:42:58.823Z"
+      "scrapedAt": "2026-03-27T22:44:33.458Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "PARTIAL",
@@ -26,7 +27,7 @@
       "slopesOpen": 5,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-26T22:42:45.804Z"
+      "scrapedAt": "2026-03-27T22:43:30.007Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -35,7 +36,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-26T22:42:45.546Z"
+      "scrapedAt": "2026-03-27T22:43:29.010Z"
     },
     "suginohara": {
       "status": "PARTIAL",
@@ -44,16 +45,16 @@
       "slopesOpen": 10,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-26T22:42:46.115Z"
+      "scrapedAt": "2026-03-27T22:43:33.403Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 6,
+      "liftsOpen": 10,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-03-26T22:42:53.530Z"
+      "scrapedAt": "2026-03-27T22:43:40.248Z"
     }
   }
 }
