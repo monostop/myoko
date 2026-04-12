@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-04-11T22:43:53.577Z",
+  "scrapedAt": "2026-04-12T22:44:24.260Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-04-11T22:42:53.447Z"
+      "scrapedAt": "2026-04-12T22:43:34.009Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,17 +17,17 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-04-11T22:43:53.576Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-04-12T22:44:24.259Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
       "status": "CLOSED",
       "baseDepthCm": null,
       "liftsOpen": 0,
-      "slopesOpen": -5,
+      "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-04-11T22:42:50.442Z"
+      "scrapedAt": "2026-04-12T22:43:31.530Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -36,7 +36,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-04-11T22:42:50.137Z"
+      "scrapedAt": "2026-04-12T22:43:31.082Z"
     },
     "suginohara": {
       "status": "CLOSED",
@@ -45,16 +45,16 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-04-11T22:42:54.846Z"
+      "scrapedAt": "2026-04-12T22:43:31.759Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": 9,
+      "liftsOpen": 6,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-04-11T22:42:58.855Z"
+      "scrapedAt": "2026-04-12T22:43:37.201Z"
     }
   }
 }
