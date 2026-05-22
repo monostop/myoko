@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-05-21T22:52:05.378Z",
+  "scrapedAt": "2026-05-22T22:46:57.821Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-05-21T22:51:58.951Z"
+      "scrapedAt": "2026-05-22T22:46:49.137Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,7 +17,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-05-21T22:52:05.377Z"
+      "scrapedAt": "2026-05-22T22:46:57.821Z"
     },
     "akakura-kanko": {
       "status": "CLOSED",
@@ -26,7 +26,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-05-21T22:51:57.601Z"
+      "scrapedAt": "2026-05-22T22:46:47.465Z"
     },
     "ikenotaira": {
       "status": "CLOSED",
@@ -35,7 +35,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-05-21T22:51:56.051Z"
+      "scrapedAt": "2026-05-22T22:46:47.328Z"
     },
     "suginohara": {
       "status": "CLOSED",
@@ -44,7 +44,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-05-21T22:52:00.501Z"
+      "scrapedAt": "2026-05-22T22:46:56.599Z"
     },
     "shiga-kogen": {
       "status": "PARTIAL",
@@ -53,7 +53,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-05-21T22:52:00.462Z"
+      "scrapedAt": "2026-05-22T22:46:51.073Z"
     }
   }
 }
