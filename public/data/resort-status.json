@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-06T22:49:02.576Z",
+  "scrapedAt": "2026-06-07T22:49:36.705Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-06-06T22:48:08.308Z"
+      "scrapedAt": "2026-06-07T22:48:41.771Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,7 +17,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-06T22:49:02.575Z",
+      "scrapedAt": "2026-06-07T22:49:36.704Z",
       "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.lottehotel.com/arai-resort/en/snow/slopes-guide\", waiting until \"domcontentloaded\"\n"
     },
     "akakura-kanko": {
@@ -27,16 +27,17 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-06T22:48:04.841Z"
+      "scrapedAt": "2026-06-07T22:48:39.140Z"
     },
     "ikenotaira": {
-      "status": "CLOSED",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 0,
-      "slopesOpen": 0,
+      "liftsOpen": null,
+      "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-06T22:48:04.246Z"
+      "scrapedAt": "2026-06-07T22:49:31.322Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://alpenblick-resort.com/ski#ski_guide\", waiting until \"domcontentloaded\"\n"
     },
     "suginohara": {
       "status": "CLOSED",
@@ -45,16 +46,17 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-06T22:48:04.246Z"
+      "scrapedAt": "2026-06-07T22:48:37.916Z"
     },
     "shiga-kogen": {
-      "status": "PARTIAL",
+      "status": "UNKNOWN",
       "baseDepthCm": null,
-      "liftsOpen": 1,
+      "liftsOpen": null,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-06T22:48:10.846Z"
+      "scrapedAt": "2026-06-07T22:49:31.384Z",
+      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://shigakogen-ski.or.jp/lift/\", waiting until \"domcontentloaded\"\n"
     }
   }
 }
