@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-14T22:52:41.590Z",
+  "scrapedAt": "2026-06-15T23:08:51.777Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-06-14T22:51:51.034Z"
+      "scrapedAt": "2026-06-15T23:08:02.843Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,7 +17,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-14T22:51:57.505Z"
+      "scrapedAt": "2026-06-15T23:08:08.951Z"
     },
     "akakura-kanko": {
       "status": "CLOSED",
@@ -26,7 +26,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-14T22:51:48.777Z"
+      "scrapedAt": "2026-06-15T23:07:59.013Z"
     },
     "ikenotaira": {
       "status": "UNKNOWN",
@@ -35,7 +35,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-14T22:52:41.535Z",
+      "scrapedAt": "2026-06-15T23:08:51.721Z",
       "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://alpenblick-resort.com/ski#ski_guide\", waiting until \"domcontentloaded\"\n"
     },
     "suginohara": {
@@ -45,7 +45,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-14T22:51:49.846Z"
+      "scrapedAt": "2026-06-15T23:08:02.176Z"
     },
     "shiga-kogen": {
       "status": "UNKNOWN",
@@ -54,7 +54,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-14T22:52:41.590Z",
+      "scrapedAt": "2026-06-15T23:08:51.776Z",
       "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://shigakogen-ski.or.jp/lift/\", waiting until \"domcontentloaded\"\n"
     }
   }
