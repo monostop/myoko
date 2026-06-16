@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-15T23:08:51.777Z",
+  "scrapedAt": "2026-06-16T23:00:49.398Z",
   "resorts": {
     "madarao": {
       "status": "UNKNOWN",
@@ -8,7 +8,7 @@
       "slopesOpen": null,
       "temperature": null,
       "weather": "晴れ",
-      "scrapedAt": "2026-06-15T23:08:02.843Z"
+      "scrapedAt": "2026-06-16T23:00:42.512Z"
     },
     "lotte-arai": {
       "status": "UNKNOWN",
@@ -17,7 +17,7 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-15T23:08:08.951Z"
+      "scrapedAt": "2026-06-16T23:00:49.397Z"
     },
     "akakura-kanko": {
       "status": "CLOSED",
@@ -26,17 +26,16 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-15T23:07:59.013Z"
+      "scrapedAt": "2026-06-16T23:00:40.438Z"
     },
     "ikenotaira": {
-      "status": "UNKNOWN",
+      "status": "CLOSED",
       "baseDepthCm": null,
-      "liftsOpen": null,
-      "slopesOpen": null,
+      "liftsOpen": 0,
+      "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-15T23:08:51.721Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://alpenblick-resort.com/ski#ski_guide\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-06-16T23:00:40.006Z"
     },
     "suginohara": {
       "status": "CLOSED",
@@ -45,17 +44,16 @@
       "slopesOpen": 0,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-15T23:08:02.176Z"
+      "scrapedAt": "2026-06-16T23:00:42.597Z"
     },
     "shiga-kogen": {
-      "status": "UNKNOWN",
+      "status": "PARTIAL",
       "baseDepthCm": null,
-      "liftsOpen": null,
+      "liftsOpen": 3,
       "slopesOpen": null,
       "temperature": null,
       "weather": null,
-      "scrapedAt": "2026-06-15T23:08:51.776Z",
-      "error": "goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://shigakogen-ski.or.jp/lift/\", waiting until \"domcontentloaded\"\n"
+      "scrapedAt": "2026-06-16T23:00:46.399Z"
     }
   }
 }
